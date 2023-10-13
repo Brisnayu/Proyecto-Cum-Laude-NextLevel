@@ -1,0 +1,61 @@
+.containerDesign {
+  display: flex;
+  flex-direction: column;
+  /* border: 1px solid blue; */
+  margin: 2rem 0;
+}
+
+.containerImages {
+  /* border: 1px solid red; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  padding: 1rem 0;
+}
+
+.imageOneDesigns {
+  border: 2px solid black;
+}
+
+.containerDesigner {
+  /* border: 1px solid red; */
+  height: 20rem;
+  padding: 3rem 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.textDesigner {
+  /* border: 1px solid blue; */
+  width: 50%;
+  position: relative;
+}
+
+.containerImageDesigner {
+  /* border: 1px solid green; */
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+}
+
+.containerDesigner > h2 {
+  z-index: 1;
+  border: 2px solid black;
+  width: 10%;
+  height: 15%;
+  position: relative;
+  bottom: -12rem;
+  right: -28rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.imageDesigner {
+  border: 1px solid black;
+  -webkit-box-shadow: -23px -17px 0px 1px rgba(0, 0, 0, 1);
+  -moz-box-shadow: -23px -17px 0px 1px rgba(0, 0, 0, 1);
+  box-shadow: -23px -17px 0px 1px rgba(0, 0, 0, 1);
+}

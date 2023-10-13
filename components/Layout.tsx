@@ -1,4 +1,5 @@
 import Head from "next/head";
+import styles from "@/styles/Home.module.css";
 
 const Layout = ({ title, description, image, children }: Props) => {
   return (
@@ -15,7 +16,7 @@ const Layout = ({ title, description, image, children }: Props) => {
         <meta property="og:image" itemProp="image" content={image} />
       </Head>
 
-      <main>{children}</main>
+      <main className={styles.main}>{children}</main>
     </>
   );
 };
