@@ -16,7 +16,13 @@ const Layout = ({ title, description, image, children }: Props) => {
         <meta property="og:image" itemProp="image" content={image} />
       </Head>
 
+      <header className={styles.header}>
+        <h1>NOMBRE DE LA PÁGINA</h1>
+      </header>
+
       <main className={styles.main}>{children}</main>
+      <footer>holi</footer>
+
     </>
   );
 };

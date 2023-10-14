@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   /* border: 1px solid blue; */
-  margin: 2rem 0;
+  /* margin: 2rem 0; */
 }
 
 .containerImages {
@@ -11,7 +11,7 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 2rem;
-  padding: 1rem 0;
+  padding: 4rem 0;
 }
 
 .imageOneDesigns {
@@ -58,4 +58,47 @@
   -webkit-box-shadow: -23px -17px 0px 1px rgba(0, 0, 0, 1);
   -moz-box-shadow: -23px -17px 0px 1px rgba(0, 0, 0, 1);
   box-shadow: -23px -17px 0px 1px rgba(0, 0, 0, 1);
+}
+
+.containerPrueba {
+  /* border: 2px solid green; */
+  width: 100%;
+  height: 25rem;
+  /* position: absolute; */
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+}
+
+.box {
+  backdrop-filter: blur(20px);
+  background-color: rgb(255 255 255 / 0.3);
+  position: relative;
+  top: -60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: transparent;
+  width: 100%;
+  height: 7rem;
+  gap: 0.5rem;
+}
+
+.box > h1 {
+  background-color: transparent;
+  scale: 1.7;
+  color: black
+}
+
+.box > p {
+  background-color: transparent;
+  color: black;
+  scale: 1.3;
+}
+
+.prueba {
+  /* border: 2px solid red; */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }

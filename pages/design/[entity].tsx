@@ -37,11 +37,21 @@ const EntityPage = () => {
       description="Página de los diseños"
       image="/silla.png"
     >
-      <h1>Información del diseño</h1>
+      <div className={styles.containerPrueba}>
+        <Image
+          className={styles.prueba}
+          src="/prueba-eames.jpg"
+          alt="imagen encabezado"
+          width={500}
+          height={200}
+        />
+        <div className={styles.box}>
+          <h1>{individualDesign.name.toUpperCase()}</h1>
+          <p>Año de Lanzamiento {individualDesign.year}</p>
+        </div>
+      </div>
 
       <div className={styles.containerDesign}>
-        <h2>{individualDesign.name}</h2>
-        <p>Año de Lanzamiento {individualDesign.year}</p>
         <div className={styles.containerImages}>
           {individualDesign.images.map((photo) => (
             <Image
@@ -54,6 +64,16 @@ const EntityPage = () => {
               priority
             />
           ))}
+        </div>
+
+        <div className={styles.containerPrueba}>
+          <Image
+            className={styles.prueba}
+            src="/prueba-eames1.jpg"
+            alt="imagen encabezado"
+            width={500}
+            height={200}
+          />
         </div>
 
         <div>
@@ -79,7 +99,6 @@ const EntityPage = () => {
         <h2>1904-1988</h2>
         {/* FALTARÍA INDICAR EL AÑO EXACTO */}
         <div className={styles.containerImageDesigner}>
-          
           <Image
             className={styles.imageDesigner}
             key={uuidv4()}
