@@ -5,6 +5,7 @@ export type Design = {
   year: number;
   category: string;
   designer: string;
+  summary: string;
 };
 
 export type Designer = {
@@ -13,6 +14,7 @@ export type Designer = {
   surname: string;
   nationality: string;
   image: string;
+  summary: string;
 };
 
 export type DesignExtended = Omit<Design, "designer"> & {

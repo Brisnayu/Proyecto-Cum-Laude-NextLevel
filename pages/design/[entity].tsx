@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { v4 as uuidv4 } from "uuid";
 import styles from "@/styles/oneDesign.module.css";
+import Card from "@/components/Card";
+import ButtonBack from "@/components/ButtonBack";
 
 const EntityPage = () => {
   const router = useRouter();
@@ -20,7 +22,7 @@ const EntityPage = () => {
       );
       const result = await response.json();
       setIndividualDesign(result.data);
-
+      console.log(result.data);
       return result.data;
     };
 
@@ -30,6 +32,30 @@ const EntityPage = () => {
   if (!individualDesign) {
     return;
   }
+  
+
+  const MockData = [
+    {
+      titulo: "Diseñada para la Exposición de Barcelona 1929",
+      descripcion:
+        "La Silla Barcelona se creó específicamente para el Pabellón Alemán en la Exposición Internacional de Barcelona de 1929.",
+    },
+    {
+      titulo: "Estructura en forma de X",
+      descripcion:
+        "Su característica distintiva es una estructura de soporte en forma de X.",
+    },
+    {
+      titulo: "Materiales de lujo",
+      descripcion:
+        "La silla original utiliza acero inoxidable y piel de cerdo de alta calidad.",
+    },
+    {
+      titulo: "Pérdida y recuperación de derechos de autor",
+      descripcion:
+        "Los derechos de autor se perdieron después de la Segunda Guerra Mundial, pero se recuperaron en la década de 1950 cuando Knoll comenzó a fabricarla nuevamente.",
+    },
+  ];
 
   return (
     <Layout
@@ -37,14 +63,16 @@ const EntityPage = () => {
       description="Página de los diseños"
       image="/silla.png"
     >
-      <div className={styles.containerPrueba}>
-        <Image
-          className={styles.prueba}
-          src="/prueba-eames.jpg"
-          alt="imagen encabezado"
-          width={500}
-          height={200}
-        />
+      <div
+        className={styles.containerPrueba}
+        style={{
+          width: "100%",
+          height: "50vh",
+          backgroundImage: "url('/wallpaper.jpg')",
+          backgroundSize: "30rem 30rem",
+          backgroundRepeat: "repeat",
+        }}
+      >
         <div className={styles.box}>
           <h1>{individualDesign.name.toUpperCase()}</h1>
           <p>Año de Lanzamiento {individualDesign.year}</p>
@@ -65,47 +93,28 @@ const EntityPage = () => {
             />
           ))}
         </div>
+      </div>
 
-        <div className={styles.containerPrueba}>
-          <Image
-            className={styles.prueba}
-            src="/prueba-eames1.jpg"
-            alt="imagen encabezado"
-            width={500}
-            height={200}
+      <div className={styles.containerCard}>
+        {MockData.map((data, index) => (
+          <Card
+            key={uuidv4()}
+            titleCuriousFact={data.titulo}
+            textCuriousFact={data.descripcion}
+            numberCuriousFact={index + 1}
           />
-        </div>
-
-        <div>
-          <h3>Curiosidades</h3>
-          <p>
-            Lorem Ipsum es simplemente el texto de relleno de las imprentas y
-            archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar
-            de las industrias desde el año 1500, cuando un impresor (N. del T.
-            persona que se dedica a la imprenta) desconocido usó una galería de
-            textos y los mezcló de tal manera que logró hacer un libro de textos
-            especimen. No sólo sobrevivió 500 años, sino que tambien ingresó
-            como texto de relleno en documentos electrónicos, quedando
-            esencialmente igual al original. Fue popularizado en los 60s con la
-            creación de las hojas Letraset, las cuales contenian pasajes de
-            Lorem Ipsum, y más recientemente con software de autoedición, como
-            por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem
-            Ipsum.
-          </p>
-        </div>
+        ))}
       </div>
 
       <div className={styles.containerDesigner}>
-        <h2>1904-1988</h2>
-        {/* FALTARÍA INDICAR EL AÑO EXACTO */}
         <div className={styles.containerImageDesigner}>
           <Image
             className={styles.imageDesigner}
             key={uuidv4()}
             src={individualDesign.designer.image}
             alt={individualDesign.designer.name}
-            width={250}
-            height={250}
+            width={350}
+            height={350}
             priority
           />
         </div>
@@ -113,28 +122,27 @@ const EntityPage = () => {
           <h2>
             {individualDesign.designer.name} {individualDesign.designer.surname}
           </h2>
+          <h3>1904-1988</h3>
           <h4>{individualDesign.designer.nationality}</h4>
           <br />
-          <p>
-            Lorem Ipsum es simplemente el texto de relleno de las imprentas y
-            archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar
-            de las industrias desde el año 1500, cuando un impresor (N. del T.
-            persona que se dedica a la imprenta) desconocido usó una galería de
-            textos y los mezcló de tal manera que logró hacer un libro de textos
-            especimen. No sólo sobrevivió 500 años, sino que tambien ingresó
-            como texto de relleno en documentos electrónicos, quedando
-            esencialmente igual al original. Fue popularizado en los 60s con la
-            creación de las hojas Letraset, las cuales contenian pasajes de
-            Lorem Ipsum, y más recientemente con software de autoedición, como
-            por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem
-            Ipsum.
-          </p>
+          <p>{individualDesign.designer.summary}</p>
         </div>
       </div>
 
-      <Link href="/design/designs">
-        <button>Volver atrás</button>
-      </Link>
+      <div
+        className={styles.containerButtonBack}
+        style={{
+          width: "100%",
+          height: "30vh",
+          backgroundImage: "url('/sillitas1.jpg')",
+          backgroundSize: "20rem 20rem",
+          backgroundRepeat: "repeat",
+        }}
+      >
+        <Link href="/design/designs">
+          <ButtonBack title="Volver" color="button" />
+        </Link>
+      </div>
     </Layout>
   );
 };

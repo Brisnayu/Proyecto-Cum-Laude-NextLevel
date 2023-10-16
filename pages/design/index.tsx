@@ -6,6 +6,7 @@ import { GetStaticProps } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import useSWR from "swr";
+import ButtonBack from "@/components/ButtonBack";
 
 const DesignPage = ({ designs }: Props) => {
   const { data, error } = useSWR("/api/designs", fetcher, {
@@ -14,7 +15,7 @@ const DesignPage = ({ designs }: Props) => {
 
   const designList = (data?.designs.data as Design[]) || designs;
 
-  const numberRandom = Math.floor(Math.random() * (designList.length));
+  const numberRandom = Math.floor(Math.random() * designList.length);
 
   // console.log(designList)
   // console.log(numberRandom)
@@ -53,7 +54,7 @@ const DesignPage = ({ designs }: Props) => {
       </Link>
 
       <Link href="/">
-        <button>Volver al inicio</button>
+        <ButtonBack title="Volver al inicio" color="button" />
       </Link>
     </Layout>
   );

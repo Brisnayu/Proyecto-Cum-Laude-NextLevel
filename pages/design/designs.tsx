@@ -6,6 +6,8 @@ import { GetStaticProps } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import useSWR from "swr";
+import ButtonBack from "@/components/ButtonBack";
+import styles from "@/styles/design.module.css";
 
 const DesignPage = ({ designs }: Props) => {
   const { data, error } = useSWR("/api/designs", fetcher, {
@@ -20,29 +22,44 @@ const DesignPage = ({ designs }: Props) => {
       description="Página de los diseños"
       image="/silla.png"
     >
-      <h1>Listado de Diseños</h1>
-
       {designList.map((design) => (
-        <div key={design._id}>
-          <p>ID: {design._id}</p>
-          <h2>{design.name}</h2>
-          <p>{design.year}</p>
+        <div key={design._id} className={styles.containerDesign}>
+          <h2>{design.category}</h2>
           <Image
+            className={styles.imageDesign}
             src={design.images[0]}
             alt={design.name}
             width={200}
             height={200}
             priority
           />
-          <Link href={`/design/${design._id}`}>
-            <button>Leer más</button>
-          </Link>
+          <div className={styles.containerText}>
+            <h2>{design.name}</h2>
+            <p>Año de lanzamiento: {design.year}</p>
+            <br />
+            <p>{design.summary}</p>
+
+            <Link href={`/design/${design._id}`}>
+              <ButtonBack title="Leer más" color="buttonDesign" />
+            </Link>
+          </div>
         </div>
       ))}
 
-      <Link href="/design">
-        <button>Volver al inicio</button>
-      </Link>
+      <div
+        className={styles.containerButtonBack}
+        style={{
+          width: "100%",
+          height: "30vh",
+          backgroundImage: "url('/sillitas1.jpg')",
+          backgroundSize: "20rem 20rem",
+          backgroundRepeat: "repeat",
+        }}
+      >
+        <Link href="/design">
+          <ButtonBack title="Volver" color="button" />
+        </Link>
+      </div>
     </Layout>
   );
 };

@@ -17,11 +17,10 @@ const Layout = ({ title, description, image, children }: Props) => {
       </Head>
 
       <header className={styles.header}>
-        <h1>NOMBRE DE LA PÁGINA</h1>
+        <h1>DISEÑOS FAMOSOS</h1>
       </header>
 
       <main className={styles.main}>{children}</main>
-      <footer>holi</footer>
 
     </>
   );
