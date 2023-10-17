@@ -114,7 +114,7 @@ const EntityPage = () => {
           backgroundRepeat: "repeat",
         }}
       >
-        <Link href="/design/designs">
+        <Link href="/design">
           <ButtonBack title="Volver" color="button" />
         </Link>
       </div>
