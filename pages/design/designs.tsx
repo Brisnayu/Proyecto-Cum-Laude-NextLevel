@@ -22,6 +22,10 @@ const DesignPage = ({ designs }: Props) => {
       description="Página de los diseños"
       image="/silla.png"
     >
+      <div className={styles.containerTitle}>
+        <h1>Conoce un poco de los mejores diseños de la historia</h1>
+      </div>
+
       {designList.map((design) => (
         <div key={design._id} className={styles.containerDesign}>
           <h2>{design.category}</h2>

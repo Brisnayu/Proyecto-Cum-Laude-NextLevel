@@ -22,7 +22,6 @@ const EntityPage = () => {
       );
       const result = await response.json();
       setIndividualDesign(result.data);
-      console.log(result.data);
       return result.data;
     };
 
@@ -32,30 +31,6 @@ const EntityPage = () => {
   if (!individualDesign) {
     return;
   }
-  
-
-  const MockData = [
-    {
-      titulo: "Diseñada para la Exposición de Barcelona 1929",
-      descripcion:
-        "La Silla Barcelona se creó específicamente para el Pabellón Alemán en la Exposición Internacional de Barcelona de 1929.",
-    },
-    {
-      titulo: "Estructura en forma de X",
-      descripcion:
-        "Su característica distintiva es una estructura de soporte en forma de X.",
-    },
-    {
-      titulo: "Materiales de lujo",
-      descripcion:
-        "La silla original utiliza acero inoxidable y piel de cerdo de alta calidad.",
-    },
-    {
-      titulo: "Pérdida y recuperación de derechos de autor",
-      descripcion:
-        "Los derechos de autor se perdieron después de la Segunda Guerra Mundial, pero se recuperaron en la década de 1950 cuando Knoll comenzó a fabricarla nuevamente.",
-    },
-  ];
 
   return (
     <Layout
@@ -96,11 +71,11 @@ const EntityPage = () => {
       </div>
 
       <div className={styles.containerCard}>
-        {MockData.map((data, index) => (
+        {individualDesign.curiosities.map((data, index) => (
           <Card
             key={uuidv4()}
-            titleCuriousFact={data.titulo}
-            textCuriousFact={data.descripcion}
+            titleCuriousFact={data.title}
+            textCuriousFact={data.description}
             numberCuriousFact={index + 1}
           />
         ))}

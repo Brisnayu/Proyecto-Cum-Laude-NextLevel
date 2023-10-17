@@ -1,3 +1,8 @@
+export type CuriositiesDesign = {
+  title: string;
+  description: string;
+}
+
 export type Design = {
   _id: string;
   name: string;
@@ -6,6 +11,7 @@ export type Design = {
   category: string;
   designer: string;
   summary: string;
+  curiosities: CuriositiesDesign[];
 };
 
 export type Designer = {
