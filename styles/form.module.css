@@ -1,0 +1,91 @@
+.containerForm {
+  border: 2px solid red;
+  width: 100%;
+  height: 70vh;
+  display: flex;
+}
+
+.containerLeft {
+  width: 50%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* border: 3px solid green; */
+  gap: 1rem;
+}
+
+.inputBox {
+  position: relative;
+  width: 250px;
+}
+
+.inputBox input {
+  width: 100%;
+  padding: 15px;
+  font-size: 1em;
+  background: transparent;
+  border-radius: 8px;
+  color: black;
+}
+
+.inputBox span,
+.selectBox span,
+.containerImage span {
+  margin-top: 5px;
+  position: absolute;
+  left: 15px;
+  top: -18px;
+  font-size: 0.9em;
+  padding: 5px 10px;
+  border-radius: 8px;
+}
+
+.selectBox {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border: 2px solid black;
+  border-radius: 8px;
+  width: 250px;
+  padding: 15px;
+  position: relative;
+}
+
+.selectBox select {
+  border: transparent;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+/* OTROS */
+
+.inputImage {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.containerImage {
+  background-color: transparent;
+  border: 0.125rem dashed hsla(0, 0%, 0%, 0.858);
+  padding: 5px 10px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 250px;
+  height: 4rem;
+  position: relative;
+}
