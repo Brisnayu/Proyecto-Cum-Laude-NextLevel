@@ -3,11 +3,10 @@ import styles from "@/styles/modalForm.module.css";
 import { v4 as uuidv4 } from "uuid";
 import Image from "next/image";
 
-const ModalForm = ({previewImage}: ModalProps) => {
+const ModalForm = ({ previewImage }: ModalProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const openModal = () => {
-    console.log("Hola?");
     setIsOpen(true);
   };
 
@@ -15,12 +14,15 @@ const ModalForm = ({previewImage}: ModalProps) => {
     setIsOpen(false);
   };
 
-  console.log(isOpen);
-
   return (
     <div>
-      <button className={styles.buttonModal} onClick={openModal}>
-        Abrir Modal
+      <button
+        className={styles.buttonModal}
+        onClick={(event) => {
+          openModal(), event.preventDefault();
+        }}
+      >
+        Vista previa
       </button>
 
       {isOpen === true ? (
@@ -42,6 +44,7 @@ const ModalForm = ({previewImage}: ModalProps) => {
                   priority
                 />
               ))}
+              <p>Total de imágenes seleccionadas: {previewImage.length}</p>
             </div>
           </div>
         </div>
@@ -54,6 +57,6 @@ const ModalForm = ({previewImage}: ModalProps) => {
 
 export type ModalProps = {
   previewImage: string[];
-}
+};
 
 export default ModalForm;
