@@ -11,26 +11,28 @@ import {
 import styles from "@/styles/form.module.css";
 import Image from "next/image";
 import { ChangeEvent, useState } from "react";
+import ModalForm from "@/components/ModalForm";
+import { v4 as uuidv4 } from "uuid";
 
 export type CategoryType = "Silla" | "Lámpara" | "Mesa" | "";
 
-export type FormData = {
+export type TypeFormData = {
   name: string;
   year: number;
-  images: File;
+  images: File[];
   category?: CategoryType;
   summary: string;
 };
 
 const FormPage = () => {
   const [maxImages, setMaxImages] = useState<boolean>();
-  const [previewImage, setPreviewImage] = useState<string>();
+  const [previewImage, setPreviewImage] = useState<string[]>([]);
   const {
     control,
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>();
+  } = useForm<TypeFormData>();
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target) {
@@ -42,33 +44,48 @@ const FormPage = () => {
       } else {
         setMaxImages(false);
 
-        const reader = new FileReader();
-
         if (selectedFiles && selectedFiles.length > 0) {
-          reader.onload = (e) => {
-            if (e.target) {
-              setPreviewImage(e.target.result as string);
-            }
-          };
-          reader.readAsDataURL(selectedFiles[0]);
+          const arrayImages: string[] = [];
+
+          for (const file of selectedFiles) {
+            const reader = new FileReader();
+
+            reader.onload = (e) => {
+              if (e.target) {
+                arrayImages.push(e.target.result as string);
+              }
+            };
+
+            reader.readAsDataURL(file);
+          }
+          console.log("dentro del if", arrayImages);
+          setPreviewImage(arrayImages);
         }
       }
     }
   };
 
-  const onSubmit: SubmitHandler<FormData> = async (data) => {
+  console.log(previewImage);
+
+  const onSubmit: SubmitHandler<TypeFormData> = async (data) => {
     console.log(data);
+    data.year = Number(data.year);
+
+    const formData = new FormData();
+    formData.append("name", data.name);
+    formData.append("year", data.year ? data.year.toString() : "");
+    formData.append("category", data.category || "");
+    formData.append("summary", data.summary);
+
+    for (const image of data.images) {
+      formData.append("images", image);
+    }
+
     try {
-      const response = await fetch(
-        "https://project-api-design.vercel.app/api/design",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        }
-      );
+      const response = await fetch("http://localhost:4001/api/design", {
+        method: "POST",
+        body: formData,
+      });
 
       if (response.ok) {
         const responseData = await response.json();
@@ -168,15 +185,19 @@ const FormPage = () => {
         </form>
       </div>
 
-      {previewImage && (
-        <Image
-          src={previewImage}
-          alt="Preview"
-          width={200}
-          height={200}
-          priority
-        />
-      )}
+      {previewImage &&
+        previewImage.map((image) => (
+          <Image
+            key={uuidv4()}
+            src={image}
+            alt="Preview"
+            width={200}
+            height={200}
+            priority
+          />
+        ))}
+
+      <ModalForm previewImage={previewImage} />
 
       <Link href="/">
         <ButtonBack title="Volver" color="button" />
