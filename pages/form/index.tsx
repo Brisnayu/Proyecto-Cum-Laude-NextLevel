@@ -11,6 +11,7 @@ import styles from "@/styles/form.module.css";
 import Image from "next/image";
 import { ChangeEvent, useState } from "react";
 import ModalForm from "@/components/ModalForm";
+import ModalFormDesign from "@/components/ModalFormDesign";
 
 export type CategoryType = "Silla" | "Lámpara" | "Mesa" | "";
 
@@ -20,15 +21,21 @@ export type TypeFormData = {
   images: File[];
   category?: CategoryType;
   summary: string;
-  curiosities: { title: string; description: string}[];
+  curiosities: { title: string; description: string }[];
 };
+
+export type TypeFormDataExtended = Omit<TypeFormData, "images"> & {
+  images: string[];
+}
 
 const FormPage = () => {
   const [maxImages, setMaxImages] = useState<boolean>();
   const [previewImage, setPreviewImage] = useState<string[]>([]);
   const [isEmpty, setIsEmpty] = useState<boolean>(true);
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpenSend, setIsOpenSend] = useState<boolean>(false);
+  const [infoSent, setInfoSent] = useState<TypeFormDataExtended>();
 
   const openModal = () => {
     setIsOpen(true);
@@ -36,6 +43,14 @@ const FormPage = () => {
 
   const closeModal = () => {
     setIsOpen(false);
+  };
+
+  const openModalSend = () => {
+    setIsOpenSend(true);
+  };
+
+  const closeModalSend = () => {
+    setIsOpenSend(false);
   };
 
   const addCuriosity = () => {
@@ -51,6 +66,7 @@ const FormPage = () => {
     control,
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<TypeFormData>();
 
@@ -99,8 +115,6 @@ const FormPage = () => {
   const onSubmit: SubmitHandler<TypeFormData> = async (data) => {
     console.log("DATOS", data);
 
-    console.log("CURIOSIDADES", data.curiosities)
-
     data.year = Number(data.year);
 
     const formData = new FormData();
@@ -109,12 +123,12 @@ const FormPage = () => {
     formData.append("category", data.category || "");
     formData.append("summary", data.summary);
     formData.append("curiosities", JSON.stringify(data.curiosities));
-    
-    for (const image of data.images) {
-      formData.append("images", image);
-    }
 
-    console.log("CURIOSIDADES EN FORMDATA", formData.getAll("curiosities"))
+    if (data.images) {
+      for (const image of data.images) {
+        formData.append("images", image);
+      }
+    }
 
     try {
       const response = await fetch("http://localhost:4001/api/design", {
@@ -124,6 +138,9 @@ const FormPage = () => {
 
       if (response.ok) {
         const responseData = await response.json();
+        setInfoSent(responseData.data);
+        openModalSend();
+        reset();
         console.log("RESPUESTA API OK", responseData);
       } else {
         console.log("ERROR", response.status);
@@ -145,17 +162,17 @@ const FormPage = () => {
 
       <div className={styles.containerForm}>
         <div className={styles.containerLeft}>
+          <h2>Registra un nuevo diseño 🪑</h2>
           <Image
-            src="/gatito.jpg"
+            src="/imageForm/formDesign.png"
             alt="image"
-            width={250}
-            height={200}
+            width={450}
+            height={450}
             priority
           />
         </div>
 
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-          <h2>Nuevo diseño!</h2>
           <div className={styles.containerSup}>
             <div className={styles.inputBox}>
               <input
@@ -194,10 +211,9 @@ const FormPage = () => {
 
           <div className={styles.containerMiddle}>
             <div className={`${styles.inputBox} ${styles.inputCuriosities}`}>
-              <input type="text" />
               <span>Curiosidades</span>
               {fields.map((field, index) => (
-                <div key={field.id}>
+                <div className={styles.containerInputs} key={field.id}>
                   <input
                     type="text"
                     {...register(`curiosities.${index}.title` as const)}
@@ -208,13 +224,17 @@ const FormPage = () => {
                     {...register(`curiosities.${index}.description` as const)}
                     placeholder={`Descripción: ${index + 1}`}
                   />
-                  <button onClick={() => deleteCuriosity(index)}>
+                  <button
+                    className={`${styles.buttonModal} ${styles.buttonAdd} ${styles.buttonDelete}`}
+                    onClick={() => deleteCuriosity(index)}
+                  >
                     Eliminar
                   </button>
                 </div>
               ))}
               {fields.length < 4 && (
                 <button
+                  className={`${styles.buttonModal} ${styles.buttonAdd} ${styles.buttonSend}`}
                   onClick={(e) => {
                     addCuriosity(), e.preventDefault();
                   }}
@@ -306,7 +326,15 @@ const FormPage = () => {
             </div>
           </div>
 
-          <button type="submit">ENVIAR</button>
+          <button className={styles.buttonSendForm} type="submit">
+            ENVIAR
+          </button>
+
+          <ModalFormDesign
+            isOpenSend={isOpenSend}
+            closeModalSend={closeModalSend}
+            infoSent={infoSent as TypeFormDataExtended}
+          />
         </form>
       </div>
 

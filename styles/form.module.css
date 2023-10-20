@@ -1,5 +1,5 @@
 .containerForm {
-  border: 2px solid red;
+  /* border: 2px solid red; */
   width: 100%;
   /* height: 70vh; */
   display: flex;
@@ -9,8 +9,10 @@
   width: 50%;
   height: auto;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-top: 2rem;
 }
 
 .form {
@@ -18,8 +20,9 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 3px solid green;
+  /* border: 3px solid green; */
   gap: 1rem;
+  padding: 2rem 0;
   width: 100%;
   height: auto;
 }
@@ -121,6 +124,25 @@
 
 .inputCuriosities {
   width: 50%;
+  border: 2px solid black;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.containerInputs {
+  /* border: 4px solid red; */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.inputCuriosities button {
+  width: 40%;
 }
 
 .inputSummary {
@@ -224,4 +246,45 @@
 
 .buttonModal:hover::before {
   width: 100%;
+}
+
+/* BUTTON SEND */
+
+.buttonSendForm {
+  padding: 1rem 1.5rem;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  color: #1c5f20;
+  transition: all 1000ms;
+  font-size: 15px;
+  position: relative;
+  overflow: hidden;
+  outline: 2px solid #1c5f20;
+  cursor: pointer;
+  background-color: #a4d5a6;
+}
+
+.buttonSendForm:hover {
+  color: #1c5f20;
+  transform: scale(1);
+  outline: 2px solid #1c5f20;
+  box-shadow: 4px 5px 17px -4px #a4d5a6;
+}
+
+.buttonSendForm::before {
+  content: "";
+  position: absolute;
+  left: -50px;
+  top: 0;
+  width: 0;
+  height: 100%;
+  background-color: #68bb6c;
+  transform: skewX(45deg);
+  z-index: -1;
+  transition: width 1000ms;
+}
+
+.buttonSendForm:hover::before {
+  width: 250%;
 }
