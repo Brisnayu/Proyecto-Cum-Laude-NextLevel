@@ -1,42 +1,23 @@
-import { useState } from "react";
 import styles from "@/styles/modalForm.module.css";
 import { v4 as uuidv4 } from "uuid";
 import Image from "next/image";
 
-const ModalForm = ({ previewImage }: ModalProps) => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const openModal = () => {
-    setIsOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsOpen(false);
-  };
+const ModalForm = ({ previewImage, isOpen, closeModal }: ModalProps) => {
 
   return (
     <div>
-      <button
-        className={styles.buttonModal}
-        onClick={(event) => {
-          openModal(), event.preventDefault();
-        }}
-      >
-        Vista previa
-      </button>
-
       {isOpen === true ? (
         <div className={styles.modal}>
           <div className={styles.modalContent}>
-            <span className={styles.close} onClick={closeModal}>
+            <button className={styles.close} onClick={closeModal}>
               &times;
-            </span>
-            <h2>Modal Sencillo en React</h2>
-            <p>Para las imagenes!</p>
-            <div>
+            </button>
+            <h2>Vista previa de las imágenes</h2>
+            <div className={styles.containerImages}>
               {previewImage.map((image) => (
                 <Image
                   key={uuidv4()}
+                  className={styles.modalImage}
                   src={image}
                   alt="Preview"
                   width={200}
@@ -44,8 +25,8 @@ const ModalForm = ({ previewImage }: ModalProps) => {
                   priority
                 />
               ))}
-              <p>Total de imágenes seleccionadas: {previewImage.length}</p>
             </div>
+            <p>Total de imágenes seleccionadas: {previewImage.length}</p>
           </div>
         </div>
       ) : (
@@ -57,6 +38,8 @@ const ModalForm = ({ previewImage }: ModalProps) => {
 
 export type ModalProps = {
   previewImage: string[];
+  isOpen: boolean;
+  closeModal: () => void;
 };
 
 export default ModalForm;

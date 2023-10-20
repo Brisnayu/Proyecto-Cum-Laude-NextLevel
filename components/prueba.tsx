@@ -1,40 +1,43 @@
-import React, { useRef, useState } from "react";
-import styles from "@/styles/form.module.css";
+import { useFieldArray, useForm } from "react-hook-form";
 
-function FileInputCustomColor() {
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const [isEmpty, setIsEmpty] = useState(true);
+function PruebaCuriosities() {
+  const { control, register } = useForm();
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "curiosities",
+  });
 
-  const handleFileChange = () => {
-    if (fileInputRef.current) {
-      const files = fileInputRef.current.files;
-      if (files) {
-        setIsEmpty(files.length === 0);
-      }
-    }
+  const addCuriosity = () => {
+    append({ value: "" });
+    console.log("Curiosidad agregada:", fields);
+  };
+
+  const deleteCuriosity = (index: number) => {
+    remove(index);
   };
 
   return (
-    <div className={styles.pruebaStilos}>
-      <input
-        type="file"
-        id="fileInput"
-        ref={fileInputRef}
-        onChange={handleFileChange}
-      />
-      <label
-        htmlFor="fileInput"
-        className={`${styles.customFileLabel} ${isEmpty ? "empty" : ""}`}
-        data-empty={isEmpty}
-      >
-        {isEmpty ? (
-          <p className={styles.prueba1}>Seleccionar archivo</p>
-        ) : (
-            <p className={styles.prueba2}>Archivo seleccionado</p>
-        )}
-      </label>
-    </div>
+    <>
+      {fields.map((field, index) => (
+        <div key={field.id}>
+          <input
+            {...register(`curiosities[${index}].value`)}
+            placeholder={`Curiosidad ${index + 1}`}
+          />
+          <button onClick={() => deleteCuriosity(index)}>Eliminar</button>
+        </div>
+      ))}
+      {fields.length < 4 && (
+        <button
+          onClick={(e) => {
+            addCuriosity(), e.preventDefault();
+          }}
+        >
+          Agregar Curiosidad
+        </button>
+      )}
+    </>
   );
 }
 
-export default FileInputCustomColor;
+export default PruebaCuriosities;

@@ -81,28 +81,33 @@ const EntityPage = () => {
         ))}
       </div>
 
-      <div className={styles.containerDesigner}>
-        <div className={styles.containerImageDesigner}>
-          <Image
-            className={styles.imageDesigner}
-            key={uuidv4()}
-            src={individualDesign.designer.image}
-            alt={individualDesign.designer.name}
-            width={350}
-            height={350}
-            priority
-          />
+      {!individualDesign.designer ? (
+        <h2 style={{ color: "red" }}>Falta indicar el diseñador!</h2>
+      ) : (
+        <div className={styles.containerDesigner}>
+          <div className={styles.containerImageDesigner}>
+            <Image
+              className={styles.imageDesigner}
+              key={uuidv4()}
+              src={individualDesign.designer.image}
+              alt={individualDesign.designer.name}
+              width={350}
+              height={350}
+              priority
+            />
+          </div>
+          <div className={styles.textDesigner}>
+            <h2>
+              {individualDesign.designer.name}{" "}
+              {individualDesign.designer.surname}
+            </h2>
+            <h3>1904-1988</h3>
+            <h4>{individualDesign.designer.nationality}</h4>
+            <br />
+            <p>{individualDesign.designer.summary}</p>
+          </div>
         </div>
-        <div className={styles.textDesigner}>
-          <h2>
-            {individualDesign.designer.name} {individualDesign.designer.surname}
-          </h2>
-          <h3>1904-1988</h3>
-          <h4>{individualDesign.designer.nationality}</h4>
-          <br />
-          <p>{individualDesign.designer.summary}</p>
-        </div>
-      </div>
+      )}
 
       <div
         className={styles.containerButtonBack}

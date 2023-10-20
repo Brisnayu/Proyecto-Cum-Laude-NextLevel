@@ -1,7 +1,12 @@
 import ButtonBack from "@/components/ButtonBack";
 import Layout from "@/components/Layout";
 import Link from "next/link";
-import { useForm, SubmitHandler, Controller } from "react-hook-form";
+import {
+  useForm,
+  SubmitHandler,
+  Controller,
+  useFieldArray,
+} from "react-hook-form";
 import styles from "@/styles/form.module.css";
 import Image from "next/image";
 import { ChangeEvent, useState } from "react";
@@ -15,12 +20,32 @@ export type TypeFormData = {
   images: File[];
   category?: CategoryType;
   summary: string;
+  curiosities: { title: string; description: string}[];
 };
 
 const FormPage = () => {
   const [maxImages, setMaxImages] = useState<boolean>();
   const [previewImage, setPreviewImage] = useState<string[]>([]);
   const [isEmpty, setIsEmpty] = useState<boolean>(true);
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const openModal = () => {
+    setIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
+  const addCuriosity = () => {
+    append({ title: "", description: "" });
+    console.log("Curiosidad agregada:", fields);
+  };
+
+  const deleteCuriosity = (index: number) => {
+    remove(index);
+  };
 
   const {
     control,
@@ -29,36 +54,41 @@ const FormPage = () => {
     formState: { errors },
   } = useForm<TypeFormData>();
 
-  // const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-  //   if (e.target) {
-  //     const selectedFiles = e.target.files;
+  const { fields, append, remove } = useFieldArray<TypeFormData>({
+    control,
+    name: "curiosities",
+  });
 
-  //     if (selectedFiles && selectedFiles.length > 4) {
-  //       setMaxImages(true);
-  //       e.target.value = "";
-  //     } else {
-  //       setMaxImages(false);
-  //       setIsEmpty(false);
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target) {
+      const selectedFiles = e.target.files;
 
-  //       if (selectedFiles && selectedFiles.length > 0) {
-  //         const arrayImages: string[] = [];
+      if (selectedFiles && selectedFiles.length > 4) {
+        setMaxImages(true);
+        e.target.value = "";
+      } else {
+        setMaxImages(false);
+        setIsEmpty(false);
 
-  //         for (const file of selectedFiles) {
-  //           const reader = new FileReader();
+        if (selectedFiles && selectedFiles.length > 0) {
+          const arrayImages: string[] = [];
 
-  //           reader.onload = (e) => {
-  //             if (e.target) {
-  //               arrayImages.push(e.target.result as string);
-  //             }
-  //           };
+          for (const file of selectedFiles) {
+            const reader = new FileReader();
 
-  //           reader.readAsDataURL(file);
-  //         }
-  //         setPreviewImage(arrayImages);
-  //       }
-  //     }
-  //   }
-  // };
+            reader.onload = (e) => {
+              if (e.target) {
+                arrayImages.push(e.target.result as string);
+              }
+            };
+
+            reader.readAsDataURL(file);
+          }
+          setPreviewImage(arrayImages);
+        }
+      }
+    }
+  };
 
   const handleDeleteFiles = () => {
     setPreviewImage([]);
@@ -69,6 +99,8 @@ const FormPage = () => {
   const onSubmit: SubmitHandler<TypeFormData> = async (data) => {
     console.log("DATOS", data);
 
+    console.log("CURIOSIDADES", data.curiosities)
+
     data.year = Number(data.year);
 
     const formData = new FormData();
@@ -76,18 +108,19 @@ const FormPage = () => {
     formData.append("year", data.year ? data.year.toString() : "");
     formData.append("category", data.category || "");
     formData.append("summary", data.summary);
-
+    formData.append("curiosities", JSON.stringify(data.curiosities));
+    
     for (const image of data.images) {
       formData.append("images", image);
     }
+
+    console.log("CURIOSIDADES EN FORMDATA", formData.getAll("curiosities"))
 
     try {
       const response = await fetch("http://localhost:4001/api/design", {
         method: "POST",
         body: formData,
       });
-
-      // console.log("IMAGENES", formData.getAll("images"));
 
       if (response.ok) {
         const responseData = await response.json();
@@ -163,10 +196,36 @@ const FormPage = () => {
             <div className={`${styles.inputBox} ${styles.inputCuriosities}`}>
               <input type="text" />
               <span>Curiosidades</span>
+              {fields.map((field, index) => (
+                <div key={field.id}>
+                  <input
+                    type="text"
+                    {...register(`curiosities.${index}.title` as const)}
+                    placeholder={`Título: ${index + 1}`}
+                  />
+                  <input
+                    type="text"
+                    {...register(`curiosities.${index}.description` as const)}
+                    placeholder={`Descripción: ${index + 1}`}
+                  />
+                  <button onClick={() => deleteCuriosity(index)}>
+                    Eliminar
+                  </button>
+                </div>
+              ))}
+              {fields.length < 4 && (
+                <button
+                  onClick={(e) => {
+                    addCuriosity(), e.preventDefault();
+                  }}
+                >
+                  Agregar Curiosidad
+                </button>
+              )}
             </div>
 
             <div className={`${styles.inputBox} ${styles.inputSummary}`}>
-              <textarea rows={7} cols={50} {...register("summary")}></textarea>
+              <textarea rows={7} cols={50} {...register("summary")} />
               <span>Resumen</span>
             </div>
           </div>
@@ -178,30 +237,60 @@ const FormPage = () => {
                 name="images"
                 control={control}
                 render={({ field }) => (
-                  <input
-                    type="file"
-                    id="images"
-                    multiple
-                    onChange={(e) => {
-                      field.onChange(Array.from(e.target.files as ArrayLike<File>));
-                    }}
-                  />
+                  <>
+                    <input
+                      type="file"
+                      id="images"
+                      multiple
+                      onChange={(e) => {
+                        field.onChange(
+                          Array.from(e.target.files as ArrayLike<File>)
+                        );
+                        handleFileChange(e);
+                      }}
+                    />
+                    <label
+                      htmlFor="images"
+                      className={styles.customFileLabel}
+                      data-empty={isEmpty}
+                    >
+                      {isEmpty ? (
+                        <p className={styles.beforeImages}>
+                          Seleccionar archivo/s
+                        </p>
+                      ) : (
+                        <p className={styles.afterImages}>
+                          Archivo/s seleccionado
+                        </p>
+                      )}
+                    </label>
+                  </>
                 )}
               />
 
-              <label
-                htmlFor="images"
-                className={styles.customFileLabel}
-                data-empty={isEmpty}
-              >
-                {/* ... tu etiqueta personalizada ... */}
-              </label>
+              <ModalForm
+                previewImage={previewImage}
+                isOpen={isOpen}
+                closeModal={closeModal}
+              />
+
               {maxImages === false ? (
                 <div className={styles.buttonImages}>
-                  <div>
-                    <ModalForm previewImage={previewImage} />
-                  </div>
-                  {/* ... otros elementos ... */}
+                  <button
+                    className={`${styles.buttonModal} ${styles.buttonSend}`}
+                    onClick={(event) => {
+                      openModal(), event.preventDefault();
+                    }}
+                  >
+                    Vista previa
+                  </button>
+
+                  <button
+                    className={`${styles.buttonModal} ${styles.buttonDelete}`}
+                    onClick={handleDeleteFiles}
+                  >
+                    Eliminar
+                  </button>
                 </div>
               ) : (
                 ""
