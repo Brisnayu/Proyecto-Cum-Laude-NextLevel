@@ -23,7 +23,7 @@
   /* border: 3px solid green; */
   gap: 1rem;
   padding: 2rem 0;
-  width: 100%;
+  width: 60%;
   height: auto;
 }
 
@@ -153,12 +153,14 @@
   width: 100%;
   height: auto;
   padding: 0 2rem;
+  display: flex;
+  gap: 2rem;
 }
 
 .inputImage {
   border: 2px solid black;
   border-radius: 8px;
-  width: 100%;
+  width: 50%;
   height: auto;
   padding: 2rem;
   position: relative;

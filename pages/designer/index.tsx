@@ -3,7 +3,6 @@ import { getDesigners } from "@/libs/designers";
 import { Designer } from "@/types";
 import { fetcher } from "@/utils/fetcher";
 import { GetStaticProps } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import useSWR from "swr";
 import ButtonBack from "@/components/ButtonBack";
