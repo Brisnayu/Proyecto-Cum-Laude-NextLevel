@@ -1,25 +1,59 @@
 import Layout from "@/components/Layout";
 import Link from "next/link";
 import styles from "@/styles/stylesForm/index.module.css";
+import ButtonSelectForm from "@/components/ButtonSelectForm";
+import PrincipalUser from "@/components/form/Users/principalUser";
+import { useState } from "react";
 
 const FormPage = () => {
+  const [user, setUser] = useState(false);
+
   return (
     <Layout
       title="Page Form Design"
       description="Página principal formularios"
       image="/silla.png"
     >
-      <h1>¿Qué deseas hacer?</h1>
-      <div className={styles.containerPrincipal}>
-        
-        <Link href="/form/register">
-          <h2>Registrar</h2>
-        </Link>
+      {user === false ? (
+        <PrincipalUser />
+      ) : (
+        <>
+          <h1>¿Qué deseas hacer?</h1>
+          <div className={styles.containerPrincipal}>
+            <div className={styles.containerElements}>
+              <Link href="/form/register">
+                <ButtonSelectForm title="Registar" selectClass="buttonUp" />
+              </Link>
 
-        <h2>Actualizar</h2>
+              <p>
+                En este apartado puedes registrar un nuevo diseñador o diseño.
+              </p>
+            </div>
 
-        <h2>Eliminar</h2>
-      </div>
+            <div className={styles.containerElements}>
+              <Link href="/form/register">
+                <ButtonSelectForm title="Actualizar" selectClass="buttonUp" />
+              </Link>
+
+              <p>
+                En este apartado puedes actualizar un diseñador o diseño ya
+                existente.
+              </p>
+            </div>
+
+            <div className={styles.containerElements}>
+              <Link href="/form/register">
+                <ButtonSelectForm title="Eliminar" selectClass="buttonUp" />
+              </Link>
+
+              <p>
+                En este apartado puedes eliminar un diseñador o un diseño ya
+                existente.
+              </p>
+            </div>
+          </div>
+        </>
+      )}
     </Layout>
   );
 };

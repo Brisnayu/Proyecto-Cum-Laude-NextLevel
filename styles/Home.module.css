@@ -1,8 +1,8 @@
 .header {
-  min-height: 12vh;
+  height: 18vh;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   padding: 1rem;
   border-bottom: 1.5rem solid #68bb6c;
 }
@@ -10,7 +10,7 @@
 .main {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: center;
   /* padding: 6rem; */
   min-height: 80vh;

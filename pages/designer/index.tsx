@@ -17,7 +17,7 @@ const DesignerPage = ({ designers }: Props) => {
 
   const designerList = (data?.designers.data as Designer[]) || designers;
 
-  //   console.log(designerList)
+    // console.log(designerList)
 
   return (
     <Layout

@@ -109,7 +109,7 @@ const FormDesignPage = () => {
   const handleDeleteFiles = () => {
     setPreviewImage([]);
     setIsEmpty(true);
-    setMaxImages(true);
+    setMaxImages(false);
   };
 
   const onSubmit: SubmitHandler<TypeFormData> = async (data) => {
@@ -129,7 +129,7 @@ const FormDesignPage = () => {
         formData.append("images", image);
       }
     }
-
+    
     try {
       const response = await fetch("http://localhost:4001/api/design", {
         method: "POST",
@@ -141,6 +141,10 @@ const FormDesignPage = () => {
         setInfoSent(responseData.data);
         openModalSend();
         reset();
+        setIsEmpty(true);
+        setPreviewImage([]);
+        setMaxImages(false);
+        remove();
         console.log("RESPUESTA API OK", responseData);
       } else {
         console.log("ERROR", response.status);
@@ -240,6 +244,7 @@ const FormDesignPage = () => {
               <textarea rows={7} cols={50} {...register("summary")} />
               <span>Resumen</span>
             </div>
+
           </div>
 
           <div className={styles.containerLower}>
@@ -286,7 +291,7 @@ const FormDesignPage = () => {
                 closeModal={closeModal}
               />
 
-              {maxImages === false ? (
+              {isEmpty === false && (
                 <div className={styles.buttonImages}>
                   <button
                     className={`${styles.buttonModal} ${styles.buttonSend}`}
@@ -304,16 +309,12 @@ const FormDesignPage = () => {
                     Eliminar
                   </button>
                 </div>
-              ) : (
-                ""
               )}
 
-              {maxImages === true ? (
+              {maxImages === true && (
                 <p style={{ color: "red" }}>
                   Recuerda que puedes seleccionar un máximo de 4 imágenes.
                 </p>
-              ) : (
-                ""
               )}
             </div>
           </div>
@@ -329,11 +330,7 @@ const FormDesignPage = () => {
           />
         </form>
       </div>
-
-      <Link href="/">
-        <ButtonBack title="Volver" color="button" />
-      </Link>
-      </>
+    </>
   );
 };
 

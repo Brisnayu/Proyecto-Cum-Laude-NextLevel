@@ -1,16 +1,13 @@
-import ButtonBack from "@/components/ButtonBack";
-import Link from "next/link";
 import {
   useForm,
   SubmitHandler,
   Controller,
-  useFieldArray,
 } from "react-hook-form";
 import styles from "@/styles/form.module.css";
 import Image from "next/image";
 import { ChangeEvent, useState } from "react";
 import ModalForm from "@/components/ModalForm";
-import ModalFormDesign from "@/components/ModalFormDesign";
+import ModalFormDesigner from "@/components/ModalFormDesigner";
 
 export type TypeFormDesignerData = {
   name: string;
@@ -35,7 +32,7 @@ const FormDesignerPage = () => {
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isOpenSend, setIsOpenSend] = useState<boolean>(false);
-  //   const [infoSent, setInfoSent] = useState<TypeFormDataExtended>();
+  const [infoSent, setInfoSent] = useState<TypeFormDesignerDataExtended>();
 
   const openModal = () => {
     setIsOpen(true);
@@ -64,8 +61,6 @@ const FormDesignerPage = () => {
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target) {
       const selectedFiles = e.target.files;
-
-      // console.log(selectedFiles);
 
       let image: string = "";
 
@@ -102,7 +97,7 @@ const FormDesignerPage = () => {
     formData.append("dateOfDeath", data.dateOfDeath);
 
     console.log(formData.get("name"));
-    
+
     console.log(formData.get("image"));
 
     try {
@@ -113,9 +108,10 @@ const FormDesignerPage = () => {
 
       if (response.ok) {
         const responseData = await response.json();
-        // setInfoSent(responseData.data);
+        setInfoSent(responseData.data);
         openModalSend();
         reset();
+        setIsEmpty(true);
         console.log("RESPUESTA API OK", responseData);
       } else {
         console.log("ERROR", response.status);
@@ -129,9 +125,9 @@ const FormDesignerPage = () => {
     <>
       <div className={styles.containerForm}>
         <div className={styles.containerLeft}>
-          <h2>Registra un nuevo diseño 🪑</h2>
+          <h2>Registra un nuevo diseñador 🛋️</h2>
           <Image
-            src="/imageForm/formDesign.png"
+            src="/imageForm/formDesigner.png"
             alt="image"
             width={450}
             height={450}
@@ -178,8 +174,8 @@ const FormDesignerPage = () => {
                       id="image"
                       onChange={(e) => {
                         field.onChange(e.target.files?.[0]),
-                        console.log("que es esto", e.target.files?.[0])
-                        handleFileChange(e)
+                          console.log("que es esto", e.target.files?.[0]);
+                        handleFileChange(e);
                       }}
                     />
                     <label
@@ -207,7 +203,7 @@ const FormDesignerPage = () => {
                 closeModal={closeModal}
               />
 
-              {isEmpty === false ? (
+              {isEmpty === false && (
                 <div className={styles.buttonImages}>
                   <button
                     className={`${styles.buttonModal} ${styles.buttonSend}`}
@@ -225,8 +221,6 @@ const FormDesignerPage = () => {
                     Eliminar
                   </button>
                 </div>
-              ) : (
-                ""
               )}
             </div>
           </div>
@@ -235,17 +229,13 @@ const FormDesignerPage = () => {
             ENVIAR
           </button>
 
-          {/* <ModalFormDesign
+          <ModalFormDesigner
             isOpenSend={isOpenSend}
             closeModalSend={closeModalSend}
-            infoSent={infoSent as TypeFormDataExtended}
-          /> */}
+            infoSent={infoSent as TypeFormDesignerDataExtended}
+          />
         </form>
       </div>
-
-      <Link href="/">
-        <ButtonBack title="Volver" color="button" />
-      </Link>
     </>
   );
 };

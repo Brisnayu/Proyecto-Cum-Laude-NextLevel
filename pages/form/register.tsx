@@ -31,19 +31,21 @@ const RegisterPage = () => {
               <ButtonSelectForm
                 title="Nuevo Diseño"
                 functionElement={showDesign}
+                selectClass="buttonUp"
               />
               <ButtonSelectForm
                 title="Nuevo Diseñador"
                 functionElement={showDesigner}
+                selectClass="buttonUp"
               />
             </div>
             <div className={styles.containerImage}>
               <h2>¿Quieres registrar un nuevo Diseño o un nuevo Diseñador?</h2>
               <Image
-                src="/gatito.jpg"
+                src="/imageForm/register.png"
                 alt="Image Form Register"
-                width={200}
-                height={200}
+                width={300}
+                height={300}
               />
             </div>
           </>
