@@ -9,7 +9,7 @@ export type UserForm = {
   password: string;
 };
 
-const PrincipalUser = () => {
+const PrincipalUser = ({ setUser }: PrincipalUserProps) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -23,20 +23,27 @@ const PrincipalUser = () => {
   } = useForm<UserForm>();
 
   const onSubmit: SubmitHandler<UserForm> = async (formData) => {
-    console.log(formData);
+    console.log("ESTOS SON LOS VALORES DEL FORMULARIO", formData);
 
+    const dataParse = JSON.stringify(formData);
+
+    console.log("Cómo está llegando esto", dataParse);
 
     try {
       const response = await fetch(
         "http://localhost:4001/api/user/auth/login",
         {
           method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
           body: JSON.stringify(formData),
         }
       );
 
       if (response.ok) {
-       window.location.href = "/form/register";
+        setUser(true);
+        // window.location.href = "/form/register";
       } else {
         console.log("ERROR", response.status);
       }
@@ -77,6 +84,10 @@ const PrincipalUser = () => {
       </div>
     </>
   );
+};
+
+export type PrincipalUserProps = {
+  setUser: (newValue: boolean) => void;
 };
 
 export default PrincipalUser;

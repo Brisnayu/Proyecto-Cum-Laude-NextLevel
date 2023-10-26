@@ -30,7 +30,7 @@ const Layout = ({ title, description, image, children }: Props) => {
           />
         </Link>
 
-        <h1>DISEÑOS FAMOSOS</h1>
+        <h1>Conoce un poco sobre la decoración e interiorismo</h1>
 
         <Image
             src="/logo-cat.png"

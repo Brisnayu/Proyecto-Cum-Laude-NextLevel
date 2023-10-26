@@ -6,7 +6,7 @@ import PrincipalUser from "@/components/form/Users/principalUser";
 import { useState } from "react";
 
 const FormPage = () => {
-  const [user, setUser] = useState(false);
+  const [user, setUser] = useState<boolean>(false);
 
   return (
     <Layout
@@ -15,7 +15,7 @@ const FormPage = () => {
       image="/silla.png"
     >
       {user === false ? (
-        <PrincipalUser />
+        <PrincipalUser setUser={setUser} />
       ) : (
         <>
           <h1>¿Qué deseas hacer?</h1>
@@ -31,7 +31,7 @@ const FormPage = () => {
             </div>
 
             <div className={styles.containerElements}>
-              <Link href="/form/register">
+              <Link href="/form/update">
                 <ButtonSelectForm title="Actualizar" selectClass="buttonUp" />
               </Link>
 

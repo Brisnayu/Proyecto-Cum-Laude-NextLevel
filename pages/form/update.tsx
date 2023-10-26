@@ -29,21 +29,21 @@ const RegisterPage = () => {
           <>
             <div className={styles.containerButtons}>
               <ButtonSelectForm
-                title="Nuevo Diseño"
+                title="Actualizar un diseño"
                 functionElement={showDesign}
                 selectClass="buttonUp"
               />
               <ButtonSelectForm
-                title="Nuevo Diseñador"
+                title="Actualizar un diseñador"
                 functionElement={showDesigner}
                 selectClass="buttonUp"
               />
             </div>
             <div className={styles.containerImage}>
-              <h2>Elige una opción para poder hacer un nuevo registro</h2>
+              <h2>¿Qué deseas actualizar?</h2>
               <Image
-                src="/imageForm/register.png"
-                alt="Image Form Register"
+                src="/imageForm/update.png"
+                alt="Image Form Update"
                 width={300}
                 height={300}
               />
