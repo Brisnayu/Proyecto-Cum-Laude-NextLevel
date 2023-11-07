@@ -1,21 +1,32 @@
 import Layout from "@/components/Layout";
-import FormDesignPage from "@/components/form/Register/formDesign";
 import FormDesignerPage from "@/components/form/Register/formDesigner";
 import { useState } from "react";
 import styles from "@/styles/stylesForm/register.module.css";
 import Image from "next/image";
 import ButtonSelectForm from "@/components/ButtonSelectForm";
+import UpdateDesignPage from "@/components/form/Update/UpdateDesign/updateDesign";
+import { getDesigns } from "@/libs/designs";
+import { GetStaticProps } from "next";
+import useSWR from "swr";
+import { fetcher } from "@/utils/fetcher";
+import { Design } from "@/types";
 
-const RegisterPage = () => {
-  const [registerDesign, setRegisterDesign] = useState<boolean>(false);
-  const [registerDesigner, setRegisterDesigner] = useState<boolean>(false);
+const UpdatePage = ({ designs }: Props) => {
+  const [updateDesign, setUpdateDesign] = useState<boolean>(false);
+  const [updateDesigner, setUpdateDesigner] = useState<boolean>(false);
+
+  const { data, error } = useSWR("/api/designs", fetcher, {
+    refreshInterval: 300000,
+  });
+
+  const designList = (data?.designs.data as Design[]) || designs;
 
   const showDesign = () => {
-    setRegisterDesign(true);
+    setUpdateDesign(true);
   };
 
   const showDesigner = () => {
-    setRegisterDesigner(true);
+    setUpdateDesigner(true);
   };
 
   return (
@@ -25,7 +36,7 @@ const RegisterPage = () => {
       image="/silla.png"
     >
       <div className={styles.containerPrincipal}>
-        {!registerDesign && !registerDesigner && (
+        {!updateDesign && !updateDesigner && (
           <>
             <div className={styles.containerButtons}>
               <ButtonSelectForm
@@ -46,16 +57,33 @@ const RegisterPage = () => {
                 alt="Image Form Update"
                 width={300}
                 height={300}
+                priority
               />
             </div>
           </>
         )}
 
-        {registerDesign && <FormDesignPage />}
-        {registerDesigner && <FormDesignerPage />}
+        {updateDesign && <UpdateDesignPage designs={designs} />}
+        {updateDesigner && <FormDesignerPage />}
       </div>
+      
     </Layout>
   );
 };
 
-export default RegisterPage;
+export const getStaticProps: GetStaticProps = async () => {
+  const designs = await getDesigns();
+
+  return {
+    props: {
+      designs: designs,
+    },
+    revalidate: 30,
+  };
+};
+
+export type Props = {
+  designs: Design[];
+};
+
+export default UpdatePage

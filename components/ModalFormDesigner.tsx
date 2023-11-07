@@ -8,7 +8,7 @@ const ModalFormDesign = ({
   closeModalSend,
   infoSent,
 }: ModalProps) => {
-  console.log("Dentro DE MODALFORMDESIGN", infoSent);
+  // console.log("Dentro DE MODALFORMDESIGN", infoSent);
 
   return (
     <div>
