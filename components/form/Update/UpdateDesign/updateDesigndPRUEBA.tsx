@@ -11,7 +11,7 @@ import ModalFormDesign from "@/components/ModalFormDesign";
 import { Design, DesignExtended } from "@/types";
 import useSWR from "swr";
 import { fetcher } from "@/utils/fetcher";
-import { TypeFormData, TypeFormDataExtended } from "../../Register/formDesign";
+import { TypeFormData, TypeFormDataExtended } from "../../BasicForm/designForm";
 import { v4 as uuidv4 } from "uuid";
 
 const UpdateDesignPagePRUEBA = ({ designs }: Props) => {

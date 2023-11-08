@@ -53,7 +53,6 @@ const UpdateDesignPage = ({ designs }: Props) => {
   console.log(individualDesign);
 
   return (
-    <>
       <div className={styles.updateDesign}>
         <div className={styles.containerSelect}>
           <h2>Selecciona el modelo que deseas modificar: </h2>
@@ -84,7 +83,6 @@ const UpdateDesignPage = ({ designs }: Props) => {
 
         </div>
       </div>
-    </>
   );
 };
 

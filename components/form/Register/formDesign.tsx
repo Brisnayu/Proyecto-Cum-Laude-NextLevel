@@ -1,14 +1,5 @@
-import {
-  useForm,
-  SubmitHandler,
-  Controller,
-  useFieldArray,
-} from "react-hook-form";
 import styles from "@/styles/form.module.css";
 import Image from "next/image";
-import { ChangeEvent, useState } from "react";
-import ModalForm from "@/components/ModalForm";
-import ModalFormDesign from "@/components/ModalFormDesign";
 import DesignForm from "@/components/form/BasicForm/designForm";
 
 const FormDesignPage = () => {

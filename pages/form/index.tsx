@@ -42,7 +42,7 @@ const FormPage = () => {
             </div>
 
             <div className={styles.containerElements}>
-              <Link href="/form/register">
+              <Link href="/form/delete">
                 <ButtonSelectForm title="Eliminar" selectClass="buttonUp" />
               </Link>
 

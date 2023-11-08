@@ -1,65 +1,65 @@
 import Layout from "@/components/Layout";
+import FormDesignerPage from "@/components/form/Register/formDesigner";
 import { useState } from "react";
 import styles from "@/styles/stylesForm/register.module.css";
 import Image from "next/image";
 import ButtonSelectForm from "@/components/ButtonSelectForm";
-import UpdateDesignPage from "@/components/form/Update/UpdateDesign/updateDesign";
-import { getDesigns } from "@/libs/designs";
+import DeleteDesign from "@/components/form/Delete/deleteDesign";
 import { GetStaticProps } from "next";
-import { Design, Designer } from "@/types";
-import UpdateDesignerPage from "@/components/form/Update/UpdateDesigner/updateDesigner";
+import { getDesigns } from "@/libs/designs";
 import { getDesigners } from "@/libs/designers";
+import { Design, Designer } from "@/types";
 
-const UpdatePage = ({ designs, designers }: Props) => {
-  const [updateDesign, setUpdateDesign] = useState<boolean>(false);
-  const [updateDesigner, setUpdateDesigner] = useState<boolean>(false);
+const DeletePage = ({ designs, designers }: Props) => {
+  const [deleteDesign, setDeleteDesign] = useState<boolean>(false);
+  const [deleteDesigner, setDeleteDesigner] = useState<boolean>(false);
 
   const showDesign = () => {
-    setUpdateDesign(true);
+    setDeleteDesign(true);
   };
 
   const showDesigner = () => {
-    setUpdateDesigner(true);
+    setDeleteDesigner(true);
   };
 
   return (
     <Layout
-      title="Page Register"
-      description="Página principal formularios"
+      title="Page Delete"
+      description="Página principal eliminar"
       image="/silla.png"
     >
       <div className={styles.containerPrincipal}>
-        {!updateDesign && !updateDesigner && (
+        {!deleteDesign && !deleteDesigner && (
           <>
             <div className={styles.containerButtons}>
               <ButtonSelectForm
-                title="Actualizar un diseño"
+                title="Eliminar un Diseño"
                 functionElement={showDesign}
                 selectClass="buttonUp"
               />
               <ButtonSelectForm
-                title="Actualizar un diseñador"
+                title="Eliminar un Diseñador"
                 functionElement={showDesigner}
                 selectClass="buttonUp"
               />
             </div>
             <div className={styles.containerImage}>
-              <h2>¿Qué deseas actualizar?</h2>
+              <h2>
+                Elige una opción para poder hacer eliminar alguna información
+              </h2>
               <Image
-                src="/imageForm/update.png"
-                alt="Image Form Update"
+                src="/imageForm/delete.png"
+                alt="Image Form Delete"
                 width={300}
                 height={300}
-                priority
               />
             </div>
           </>
         )}
 
-        {updateDesign && <UpdateDesignPage designs={designs} />}
-        {updateDesigner && <UpdateDesignerPage designers={designers}/>}
+        {deleteDesign && <DeleteDesign designs={designs} />}
+        {deleteDesigner && <FormDesignerPage />}
       </div>
-      
     </Layout>
   );
 };
@@ -82,4 +82,4 @@ export type Props = {
   designers: Designer[];
 };
 
-export default UpdatePage
+export default DeletePage;
