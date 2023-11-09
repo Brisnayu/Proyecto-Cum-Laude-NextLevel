@@ -9,6 +9,7 @@ import styles from "@/styles/form.module.css";
 import { ChangeEvent, useState } from "react";
 import ModalForm from "@/components/ModalForm";
 import ModalFormDesign from "@/components/ModalFormDesign";
+import ButtonSelectForm from "@/components/ButtonSelectForm";
 
 export type CategoryType = "Silla" | "Lámpara" | "Mesa" | "";
 
@@ -26,130 +27,130 @@ export type TypeFormDataExtended = Omit<TypeFormData, "images"> & {
 };
 
 const DesignForm = () => {
-    const [maxImages, setMaxImages] = useState<boolean>();
-    const [previewImage, setPreviewImage] = useState<string[] | string>([]);
-    const [isEmpty, setIsEmpty] = useState<boolean>(true);
-  
-    const [isOpen, setIsOpen] = useState<boolean>(false);
-    const [isOpenSend, setIsOpenSend] = useState<boolean>(false);
-    const [infoSent, setInfoSent] = useState<TypeFormDataExtended>();
-  
-    const openModal = () => {
-      setIsOpen(true);
-    };
-  
-    const closeModal = () => {
-      setIsOpen(false);
-    };
-  
-    const openModalSend = () => {
-      setIsOpenSend(true);
-    };
-  
-    const closeModalSend = () => {
-      setIsOpenSend(false);
-    };
-  
-    const addCuriosity = () => {
-      append({ title: "", description: "" });
-      console.log("Curiosidad agregada:", fields);
-    };
-  
-    const deleteCuriosity = (index: number) => {
-      remove(index);
-    };
-  
-    const {
-      control,
-      register,
-      handleSubmit,
-      reset,
-      formState: { errors },
-    } = useForm<TypeFormData>();
-  
-    const { fields, append, remove } = useFieldArray<TypeFormData>({
-      control,
-      name: "curiosities",
-    });
-  
-    const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-      if (e.target) {
-        const selectedFiles = e.target.files;
-  
-        if (selectedFiles && selectedFiles.length > 4) {
-          setMaxImages(true);
-          e.target.value = "";
-        } else {
-          setMaxImages(false);
-          setIsEmpty(false);
-  
-          if (selectedFiles && selectedFiles.length > 0) {
-            const arrayImages: string[] = [];
-  
-            for (const file of selectedFiles) {
-              const reader = new FileReader();
-  
-              reader.onload = (e) => {
-                if (e.target) {
-                  arrayImages.push(e.target.result as string);
-                }
-              };
-  
-              reader.readAsDataURL(file);
-            }
-            setPreviewImage(arrayImages);
+  const [maxImages, setMaxImages] = useState<boolean>();
+  const [previewImage, setPreviewImage] = useState<string[] | string>([]);
+  const [isEmpty, setIsEmpty] = useState<boolean>(true);
+
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpenSend, setIsOpenSend] = useState<boolean>(false);
+  const [infoSent, setInfoSent] = useState<TypeFormDataExtended>();
+
+  const openModal = () => {
+    setIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
+  const openModalSend = () => {
+    setIsOpenSend(true);
+  };
+
+  const closeModalSend = () => {
+    setIsOpenSend(false);
+  };
+
+  const addCuriosity = () => {
+    append({ title: "", description: "" });
+    console.log("Curiosidad agregada:", fields);
+  };
+
+  const deleteCuriosity = (index: number) => {
+    remove(index);
+  };
+
+  const {
+    control,
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<TypeFormData>();
+
+  const { fields, append, remove } = useFieldArray<TypeFormData>({
+    control,
+    name: "curiosities",
+  });
+
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target) {
+      const selectedFiles = e.target.files;
+
+      if (selectedFiles && selectedFiles.length > 4) {
+        setMaxImages(true);
+        e.target.value = "";
+      } else {
+        setMaxImages(false);
+        setIsEmpty(false);
+
+        if (selectedFiles && selectedFiles.length > 0) {
+          const arrayImages: string[] = [];
+
+          for (const file of selectedFiles) {
+            const reader = new FileReader();
+
+            reader.onload = (e) => {
+              if (e.target) {
+                arrayImages.push(e.target.result as string);
+              }
+            };
+
+            reader.readAsDataURL(file);
           }
+          setPreviewImage(arrayImages);
         }
       }
-    };
-  
-    const handleDeleteFiles = () => {
-      setPreviewImage([]);
-      setIsEmpty(true);
-      setMaxImages(false);
-    };
-  
-    const onSubmit: SubmitHandler<TypeFormData> = async (data) => {
-      console.log("DATOS", data);
-  
-      data.year = Number(data.year);
-  
-      const formData = new FormData();
-      formData.append("name", data.name);
-      formData.append("year", data.year ? data.year.toString() : "");
-      formData.append("category", data.category || "");
-      formData.append("summary", data.summary);
-      formData.append("curiosities", JSON.stringify(data.curiosities));
-  
-      if (data.images) {
-        for (const image of data.images) {
-          formData.append("images", image);
-        }
+    }
+  };
+
+  const handleDeleteFiles = () => {
+    setPreviewImage([]);
+    setIsEmpty(true);
+    setMaxImages(false);
+  };
+
+  const onSubmit: SubmitHandler<TypeFormData> = async (data) => {
+    console.log("DATOS", data);
+
+    data.year = Number(data.year);
+
+    const formData = new FormData();
+    formData.append("name", data.name);
+    formData.append("year", data.year ? data.year.toString() : "");
+    formData.append("category", data.category || "");
+    formData.append("summary", data.summary);
+    formData.append("curiosities", JSON.stringify(data.curiosities));
+
+    if (data.images) {
+      for (const image of data.images) {
+        formData.append("images", image);
       }
-      
-      try {
-        const response = await fetch("http://localhost:4001/api/design", {
-          method: "POST",
-          body: formData,
-        });
-  
-        if (response.ok) {
-          const responseData = await response.json();
-          setInfoSent(responseData.data);
-          openModalSend();
-          reset();
-          setIsEmpty(true);
-          setPreviewImage([]);
-          setMaxImages(false);
-          remove();
-          console.log("RESPUESTA API OK", responseData);
-        } else {
-          console.log("ERROR", response.status);
-        }
-      } catch (error) {
-        console.log("ERROR", error);
+    }
+
+    try {
+      const response = await fetch("http://localhost:4001/api/design", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        const responseData = await response.json();
+        setInfoSent(responseData.data);
+        openModalSend();
+        reset();
+        setIsEmpty(true);
+        setPreviewImage([]);
+        setMaxImages(false);
+        remove();
+        console.log("RESPUESTA API OK", responseData);
+      } else {
+        console.log("ERROR", response.status);
       }
-    };
+    } catch (error) {
+      console.log("ERROR", error);
+    }
+  };
 
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
@@ -204,23 +205,25 @@ const DesignForm = () => {
                 {...register(`curiosities.${index}.description` as const)}
                 placeholder={`Descripción: ${index + 1}`}
               />
-              <button
-                className={`${styles.buttonModal} ${styles.buttonAdd} ${styles.buttonDelete}`}
-                onClick={() => deleteCuriosity(index)}
-              >
-                Eliminar
-              </button>
+
+              <ButtonSelectForm
+                title="Eliminar"
+                selectClass="buttonRun"
+                selectSecondClass="buttonDelete"
+                functionElement={() => deleteCuriosity(index)}
+              />
             </div>
           ))}
           {fields.length < 4 && (
-            <button
-              className={`${styles.buttonModal} ${styles.buttonAdd} ${styles.buttonSend}`}
-              onClick={(e) => {
-                addCuriosity(), e.preventDefault();
+            <ButtonSelectForm
+              title="Agregar Curiosidad"
+              selectClass="buttonRun"
+              selectSecondClass="buttonSend"
+              functionElement={(e: React.MouseEvent) => {
+                addCuriosity();
+                e.preventDefault();
               }}
-            >
-              Agregar Curiosidad
-            </button>
+            />
           )}
         </div>
 

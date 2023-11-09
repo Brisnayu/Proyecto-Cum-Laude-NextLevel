@@ -1,8 +1,21 @@
 import styles from "@/styles/stylesForm/buttonSelectForm.module.css";
 
-const ButtonSelectForm = ({ title, functionElement, selectClass, type }: ButtonBackProps) => {
+const ButtonSelectForm = ({
+  title,
+  functionElement,
+  selectClass,
+  selectSecondClass,
+  type,
+}: ButtonBackProps) => {
+
+  const secondClass = selectSecondClass ? styles[selectSecondClass] : "";
+
   return (
-    <button type={type} onClick={functionElement} className={styles[selectClass]}>
+    <button
+      type={type}
+      onClick={functionElement}
+      className={`${styles[selectClass]} ${secondClass}`}
+    >
       {title}
     </button>
   );
@@ -10,8 +23,9 @@ const ButtonSelectForm = ({ title, functionElement, selectClass, type }: ButtonB
 
 export type ButtonBackProps = {
   title: string;
-  functionElement?: () => void;
+  functionElement?: (() => void) | ((e: React.MouseEvent) => void);
   selectClass: string;
+  selectSecondClass?: string | undefined;
   type?: "submit" | "reset" | "button";
 };
 

@@ -41,7 +41,7 @@
   cursor: pointer;
 }
 
-.buttonRun::before {
+.buttonSend::before {
   content: "";
   position: absolute;
   top: 0;
@@ -53,6 +53,21 @@
   z-index: -1;
   -webkit-box-shadow: 4px 8px 19px -3px #68bb6c;
   box-shadow: 4px 8px 19px -3px #68bb6c;
+  transition: all 250ms;
+}
+
+.buttonDelete::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  border-radius: 15px;
+  background-color: #a11d1d;
+  z-index: -1;
+  -webkit-box-shadow: 4px 8px 19px -3px #a11d1d;
+  box-shadow: 4px 8px 19px -3px #a11d1d;
   transition: all 250ms;
 }
 

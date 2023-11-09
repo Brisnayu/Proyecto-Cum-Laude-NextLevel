@@ -52,6 +52,7 @@ const DeletePage = ({ designs, designers }: Props) => {
                 alt="Image Form Delete"
                 width={300}
                 height={300}
+                priority
               />
             </div>
           </>

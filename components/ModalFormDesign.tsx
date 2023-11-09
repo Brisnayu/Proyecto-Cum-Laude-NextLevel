@@ -1,7 +1,8 @@
 import styles from "@/styles/stylesForm/modalDesign.module.css";
 import { v4 as uuidv4 } from "uuid";
 import Image from "next/image";
-import { TypeFormDataExtended } from "@/components/form/Register/formDesign";
+import { TypeFormDataExtended } from "@/components/form/BasicForm/designForm";
+import ButtonSelectForm from "./ButtonSelectForm";
 
 const ModalFormDesign = ({
   isOpenSend,
@@ -72,17 +73,17 @@ const ModalFormDesign = ({
             )}
 
             <div className={styles.containerButtons}>
-              <button
-                className={`${styles.buttonModal} ${styles.buttonSend}`}
-                onClick={closeModalSend}
-              >
-                Estupendo ✌🏽
-              </button>
-              <button
-                className={`${styles.buttonModal} ${styles.buttonDelete}`}
-              >
-                Eliminar ❌
-              </button>
+              <ButtonSelectForm 
+              title="Estupendo ✌🏽"
+              selectClass="buttonRun"
+              selectSecondClass="buttonSend"
+              functionElement={closeModalSend}
+              />
+              <ButtonSelectForm 
+              title="Eliminar ❌"
+              selectClass="buttonRun"
+              selectSecondClass="buttonDelete"
+              />
             </div>
           </div>
         </div>
