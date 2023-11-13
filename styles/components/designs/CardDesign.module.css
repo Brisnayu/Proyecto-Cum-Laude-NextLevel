@@ -1,15 +1,3 @@
-.containerButtonBack {
-  width: 100%;
-  height: 20vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #eaf6eb;
-  border-bottom: 2px solid black;
-  border-top: 2px solid black;
-  margin-top: 1rem;
-}
-
 .containerDesign {
   border: 2px solid green;
   border-radius: 10px;
@@ -42,13 +30,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-
-.containerText button {
-  /* border: 3px solid red; */
-  position: absolute;
-  right: 3.5rem;
-  bottom: 2rem;
 }
 
 @media screen and (max-width: 720px) {

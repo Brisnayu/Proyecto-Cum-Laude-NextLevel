@@ -1,10 +1,11 @@
 import Layout from "@/components/Layout";
-import FormDesignPage from "@/components/form/Register/formDesign";
-import FormDesignerPage from "@/components/form/Register/formDesigner";
 import { useState } from "react";
-import styles from "@/styles/stylesForm/register.module.css";
+import styles from "@/styles/pages/form/principalPageForm.module.css";
 import Image from "next/image";
-import ButtonSelectForm from "@/components/ButtonSelectForm";
+import ButtonSelectForm from "@/components/ButtonSelect";
+import FormRegister from "@/components/form/Register/formRegister";
+import DesignForm from "@/components/form/BasicForm/designForm";
+import DesignerForm from "@/components/form/BasicForm/designerForm";
 
 const RegisterPage = () => {
   const [registerDesign, setRegisterDesign] = useState<boolean>(false);
@@ -51,8 +52,23 @@ const RegisterPage = () => {
           </>
         )}
 
-        {registerDesign && <FormDesignPage />}
-        {registerDesigner && <FormDesignerPage />}
+        {registerDesign && (
+          <FormRegister
+            title="Registra un nuevo diseño 🪑"
+            photo="/imageForm/formDesign.png"
+          >
+            <DesignForm />
+          </FormRegister>
+        )}
+
+        {registerDesigner && (
+          <FormRegister
+            title="Registra un nuevo diseñador 🛋️"
+            photo="/imageForm/formDesigner.png"
+          >
+            <DesignerForm />
+          </FormRegister>
+        )}
       </div>
     </Layout>
   );

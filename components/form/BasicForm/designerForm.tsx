@@ -1,29 +1,27 @@
-import {
-    useForm,
-    SubmitHandler,
-    Controller,
-  } from "react-hook-form";
-  import styles from "@/styles/form.module.css";
-  import { ChangeEvent, useState } from "react";
-  import ModalForm from "@/components/ModalForm";
-  import ModalFormDesigner from "@/components/ModalFormDesigner";
-  
-  export type TypeFormDesignerData = {
-    name: string;
-    surname: string;
-    nationality: string;
-    summary: string;
-    image: File;
-    birthdate: string;
-    dateOfDeath: string;
-  };
-  
-  export type TypeFormDesignerDataExtended = Omit<
-    TypeFormDesignerData,
-    "image"
-  > & {
-    image: string;
-  };
+import { useForm, SubmitHandler, Controller } from "react-hook-form";
+import styles from "@/styles/pages/form/stylesForms.module.css";
+import { ChangeEvent, useState } from "react";
+import ModalForm from "@/components/form/ModalForm";
+import PreviewDesigner from "@/components/designer/PreviewDesigner";
+import PreviewImages from "@/components/design/PreviewImages";
+import ButtonSelect from "@/components/ButtonSelect";
+
+export type TypeFormDesignerData = {
+  name: string;
+  surname: string;
+  nationality: string;
+  summary: string;
+  image: File;
+  birthdate: string;
+  dateOfDeath: string;
+};
+
+export type TypeFormDesignerDataExtended = Omit<
+  TypeFormDesignerData,
+  "image"
+> & {
+  image: string;
+};
 
 const DesignerForm = () => {
   const [previewImage, setPreviewImage] = useState<string>("");
@@ -179,29 +177,27 @@ const DesignerForm = () => {
             )}
           />
 
-          <ModalForm
-            previewImage={previewImage}
-            isOpen={isOpen}
-            closeModal={closeModal}
-          />
+          <ModalForm isOpen={isOpen} closeModal={closeModal}>
+            <PreviewImages arrayImages={previewImage} />
+          </ModalForm>
 
           {isEmpty === false && (
             <div className={styles.buttonImages}>
-              <button
-                className={`${styles.buttonModal} ${styles.buttonSend}`}
-                onClick={(event) => {
-                  openModal(), event.preventDefault();
+              <ButtonSelect
+                title="Vista previa"
+                selectClass="buttonRun"
+                selectSecondClass="buttonSend"
+                functionElement={(e) => {
+                  openModal(), e.preventDefault();
                 }}
-              >
-                Vista previa
-              </button>
+              />
 
-              <button
-                className={`${styles.buttonModal} ${styles.buttonDelete}`}
-                onClick={handleDeleteFiles}
-              >
-                Eliminar
-              </button>
+              <ButtonSelect
+                title="Eliminar"
+                selectClass="buttonRun"
+                selectSecondClass="buttonDelete"
+                functionElement={handleDeleteFiles}
+              />
             </div>
           )}
         </div>
@@ -211,11 +207,12 @@ const DesignerForm = () => {
         ENVIAR
       </button>
 
-      <ModalFormDesigner
-        isOpenSend={isOpenSend}
-        closeModalSend={closeModalSend}
-        infoSent={infoSent as TypeFormDesignerDataExtended}
-      />
+      <ModalForm isOpen={isOpenSend} closeModal={closeModalSend}>
+        <PreviewDesigner
+          closeModalSend={closeModalSend}
+          infoSent={infoSent as TypeFormDesignerDataExtended}
+        />
+      </ModalForm>
     </form>
   );
 };

@@ -2,7 +2,7 @@ import { Inter } from "next/font/google";
 import Layout from "@/components/Layout";
 import Link from "next/link";
 import ButtonBack from "@/components/ButtonBack";
-import styles from "@/styles/Home.module.css";
+import styles from "@/styles/pages/Home.module.css";
 import Image from "next/image";
 
 const inter = Inter({ subsets: ["latin"] });

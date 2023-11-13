@@ -1,6 +1,6 @@
-import styles from "@/styles/stylesForm/buttonSelectForm.module.css";
+import styles from "@/styles/components/buttonSelect.module.css";
 
-const ButtonSelectForm = ({
+const ButtonSelect = ({
   title,
   functionElement,
   selectClass,
@@ -29,7 +29,7 @@ export type ButtonBackProps = {
   type?: "submit" | "reset" | "button";
 };
 
-export default ButtonSelectForm;
+export default ButtonSelect;
 
 // buttonUp: Sube un poco hacia arriba
 // buttonRun: El color "corre" hacia un lado

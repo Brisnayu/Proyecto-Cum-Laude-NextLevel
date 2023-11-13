@@ -1,0 +1,38 @@
+.containerText {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.containerText h3 > span {
+  font-weight: lighter;
+  font-size: 1rem;
+}
+
+.containerList {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.containerList li {
+  font-size: 18px;
+}
+
+.containerImages {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.3rem;
+}
+
+.images {
+  display: flex;
+  gap: 1rem;
+}
+
+.modalImage {
+  border: 2px solid black;
+  object-fit: cover;
+}

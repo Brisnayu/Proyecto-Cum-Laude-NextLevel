@@ -5,7 +5,7 @@ import { DesignExtended } from "@/types";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { v4 as uuidv4 } from "uuid";
-import styles from "@/styles/oneDesign.module.css";
+import styles from "@/styles/pages/design/oneDesign.module.css";
 import Card from "@/components/Card";
 import ButtonBack from "@/components/ButtonBack";
 

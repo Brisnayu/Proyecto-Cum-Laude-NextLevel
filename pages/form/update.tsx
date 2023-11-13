@@ -2,7 +2,7 @@ import Layout from "@/components/Layout";
 import { useState } from "react";
 import styles from "@/styles/stylesForm/register.module.css";
 import Image from "next/image";
-import ButtonSelectForm from "@/components/ButtonSelectForm";
+import ButtonSelectForm from "@/components/ButtonSelect";
 import UpdateDesignPage from "@/components/form/Update/UpdateDesign/updateDesign";
 import { getDesigns } from "@/libs/designs";
 import { GetStaticProps } from "next";

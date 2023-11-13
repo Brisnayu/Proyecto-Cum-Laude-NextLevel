@@ -7,7 +7,6 @@ import {
 import styles from "@/styles/stylesForm/updateDesign.module.css";
 import Image from "next/image";
 import { ChangeEvent, useState, useEffect } from "react";
-import ModalFormDesign from "@/components/ModalFormDesign";
 import { Design, DesignExtended } from "@/types";
 import useSWR from "swr";
 import { fetcher } from "@/utils/fetcher";
@@ -338,11 +337,7 @@ const UpdateDesignPagePRUEBA = ({ designs }: Props) => {
           ENVIAR
         </button>
 
-        <ModalFormDesign
-          isOpenSend={isOpenSend}
-          closeModalSend={closeModalSend}
-          infoSent={infoSent as TypeFormDataExtended}
-        />
+
       </form>
     </div>
   );

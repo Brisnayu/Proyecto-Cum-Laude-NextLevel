@@ -1,9 +1,8 @@
 import Layout from "@/components/Layout";
-import FormDesignerPage from "@/components/form/Register/formDesigner";
 import { useState } from "react";
 import styles from "@/styles/stylesForm/register.module.css";
 import Image from "next/image";
-import ButtonSelectForm from "@/components/ButtonSelectForm";
+import ButtonSelectForm from "@/components/ButtonSelect";
 import DeleteDesign from "@/components/form/Delete/deleteDesign";
 import { GetStaticProps } from "next";
 import { getDesigns } from "@/libs/designs";
@@ -59,7 +58,7 @@ const DeletePage = ({ designs, designers }: Props) => {
         )}
 
         {deleteDesign && <DeleteDesign designs={designs} />}
-        {deleteDesigner && <FormDesignerPage />}
+        {deleteDesigner && <DeleteDesign designs={designs} />}
       </div>
     </Layout>
   );

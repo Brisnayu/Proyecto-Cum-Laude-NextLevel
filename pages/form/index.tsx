@@ -1,7 +1,7 @@
 import Layout from "@/components/Layout";
 import Link from "next/link";
-import styles from "@/styles/stylesForm/index.module.css";
-import ButtonSelectForm from "@/components/ButtonSelectForm";
+import styles from "@/styles/pages/form/indexForm.module.css";
+import ButtonSelect from "@/components/ButtonSelect";
 import PrincipalUser from "@/components/form/Users/principalUser";
 import { useState } from "react";
 
@@ -22,7 +22,7 @@ const FormPage = () => {
           <div className={styles.containerPrincipal}>
             <div className={styles.containerElements}>
               <Link href="/form/register">
-                <ButtonSelectForm title="Registar" selectClass="buttonUp" />
+                <ButtonSelect title="Registar" selectClass="buttonUp" />
               </Link>
 
               <p>
@@ -32,7 +32,7 @@ const FormPage = () => {
 
             <div className={styles.containerElements}>
               <Link href="/form/update">
-                <ButtonSelectForm title="Actualizar" selectClass="buttonUp" />
+                <ButtonSelect title="Actualizar" selectClass="buttonUp" />
               </Link>
 
               <p>
@@ -43,7 +43,7 @@ const FormPage = () => {
 
             <div className={styles.containerElements}>
               <Link href="/form/delete">
-                <ButtonSelectForm title="Eliminar" selectClass="buttonUp" />
+                <ButtonSelect title="Eliminar" selectClass="buttonUp" />
               </Link>
 
               <p>

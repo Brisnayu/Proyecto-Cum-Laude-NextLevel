@@ -3,7 +3,7 @@ import styles from "@/styles/components/designs/CardDesign.module.css";
 import { Design } from "@/types";
 import { GetStaticProps } from "next";
 import Image from "next/image";
-import ButtonSelectForm from "../ButtonSelectForm";
+import ButtonSelectForm from "../ButtonSelect";
 
 const CardDesign = ({ designList }: Props) => {
   return (

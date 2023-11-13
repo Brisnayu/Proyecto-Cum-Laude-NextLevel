@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
-import styles from "@/styles/stylesForm/user.module.css";
-import ButtonSelectForm from "@/components/ButtonSelectForm";
+import styles from "@/styles/pages/form/user.module.css";
+import ButtonSelect from "@/components/ButtonSelect";
 import { useState } from "react";
 
 export type UserForm = {
@@ -75,7 +75,7 @@ const PrincipalUser = ({ setUser }: PrincipalUserProps) => {
             />
           </div>
 
-          <ButtonSelectForm
+          <ButtonSelect
             title="ENVIAR"
             selectClass="buttonRun"
             type="submit"

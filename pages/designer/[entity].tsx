@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { DesignerExtended } from "@/types";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import styles from "@/styles/oneDesigner.module.css";
+import styles from "@/styles/pages/designer/oneDesigner.module.css";
 import Card from "@/components/Card";
 import ButtonBack from "@/components/ButtonBack";
 

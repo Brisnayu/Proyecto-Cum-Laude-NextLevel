@@ -1,0 +1,26 @@
+.containerText {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 2rem;
+}
+
+.containerImages {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  /* align-items: center; */
+  /* justify-content: flex-start; */
+  gap: 0.3rem;
+}
+
+.images {
+  display: flex;
+  gap: 1rem;
+}
+
+.modalImage {
+  border: 2px solid black;
+  object-fit: cover;
+}
