@@ -203,9 +203,12 @@ const DesignerForm = () => {
         </div>
       </div>
 
-      <button className={styles.buttonSendForm} type="submit">
-        ENVIAR
-      </button>
+      <ButtonSelect
+        title="ENVIAR"
+        type="submit"
+        selectClass="buttonRun"
+        selectSecondClass="buttonSend"
+      />
 
       <ModalForm isOpen={isOpenSend} closeModal={closeModalSend}>
         <PreviewDesigner

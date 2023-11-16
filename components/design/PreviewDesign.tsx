@@ -1,4 +1,4 @@
-import styles from "@/styles/components/designs/previewDesigns.module.css";
+import styles from "@/styles/components/basic/previewRegister.module.css";
 import CardButtonsModal from "../CardButtonsModal";
 import { TypeFormDataExtended } from "../form/BasicForm/designForm";
 import { v4 as uuidv4 } from "uuid";

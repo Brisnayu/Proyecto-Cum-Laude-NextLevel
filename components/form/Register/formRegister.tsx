@@ -14,7 +14,6 @@ const FormRegister = ({ title, photo, children }: Props) => {
           priority
         />
       </div>
-
       {children}
     </div>
   );

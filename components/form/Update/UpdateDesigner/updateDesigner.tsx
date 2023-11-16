@@ -1,4 +1,4 @@
-import styles from "@/styles/stylesForm/stylesUpdate/updateDesign.module.css";
+import styles from "@/styles/pages/form/stylesForm/updateDesigner.module.css";
 import CardUpdateDesigner from "@/components/CardUpdateDesigner";
 import { getDesigners } from "@/libs/designers";
 import { Designer, DesignerExtended } from "@/types";

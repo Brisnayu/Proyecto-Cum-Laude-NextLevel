@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { v4 as uuidv4 } from "uuid";
 import CardButtonsModal from "../CardButtonsModal";
-import styles from "@/styles/components/designers/previewDesigners.module.css"
+import styles from "@/styles/components/basic/previewRegister.module.css";
 import { TypeFormDesignerDataExtended } from "@/components/form/BasicForm/designerForm";
 
 const PreviewDesigner = ({ infoSent, closeModalSend }: Props) => {
