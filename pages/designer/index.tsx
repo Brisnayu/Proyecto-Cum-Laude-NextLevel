@@ -22,6 +22,7 @@ const DesignerPage = ({ designers }: Props) => {
   return (
     <Layout
       title="Page Design"
+      titlePage="Inicio diseñadores"
       description="Página de los diseños"
       image="/silla.png"
     >

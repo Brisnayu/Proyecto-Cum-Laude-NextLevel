@@ -25,6 +25,7 @@ const UpdatePage = ({ designs, designers }: Props) => {
   return (
     <Layout
       title="Page Register"
+      titlePage="Actualización de información"
       description="Página principal formularios"
       image="/silla.png"
     >

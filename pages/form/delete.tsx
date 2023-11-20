@@ -24,6 +24,7 @@ const DeletePage = ({ designs, designers }: Props) => {
   return (
     <Layout
       title="Page Delete"
+      titlePage="Eliminación de información"
       description="Página principal eliminar"
       image="/silla.png"
     >

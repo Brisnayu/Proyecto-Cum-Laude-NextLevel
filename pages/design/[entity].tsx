@@ -35,6 +35,7 @@ const EntityPage = () => {
   return (
     <Layout
       title="Page Design"
+      titlePage="Información diseños"
       description="Página de los diseños"
       image="/silla.png"
     >

@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 const Home = () => {
   return (
-    <Layout title="Page Home" description="Pagina de inicio" image="/silla.png">
+    <Layout title="Page Home" titlePage="Inicio" description="Pagina de inicio" image="/silla.png">
       
       <div className={styles.home}>
         <div className={styles.flipCard}>

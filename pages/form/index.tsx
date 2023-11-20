@@ -11,6 +11,7 @@ const FormPage = () => {
   return (
     <Layout
       title="Page Form Design"
+      titlePage="Formularios"
       description="Página principal formularios"
       image="/silla.png"
     >

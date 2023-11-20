@@ -3,7 +3,7 @@ import styles from "@/styles/components/layout.module.css";
 import Image from "next/image";
 import Link from "next/link";
 
-const Layout = ({ title, description, image, children }: Props) => {
+const Layout = ({ title, titlePage, description, image, children }: Props) => {
   return (
     <>
       <Head>
@@ -30,7 +30,7 @@ const Layout = ({ title, description, image, children }: Props) => {
           />
         </Link>
 
-        <h1>Formularios</h1>
+        <h1>{titlePage}</h1>
 
         <Image
             src="/logo-cat.png"
@@ -49,6 +49,7 @@ const Layout = ({ title, description, image, children }: Props) => {
 
 export type Props = {
   title: string;
+  titlePage: string;
   description: string;
   image: string;
   children: React.ReactNode;

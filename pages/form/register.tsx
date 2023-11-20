@@ -22,6 +22,7 @@ const RegisterPage = () => {
   return (
     <Layout
       title="Page Register"
+      titlePage="Nuevo registro"
       description="Página principal formularios"
       image="/silla.png"
     >
