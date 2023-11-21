@@ -1,7 +1,17 @@
+.principalContainer {
+  /* border: 1px solid red; */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  padding-top: 1rem;
+}
+
 .containerDesign {
   border: 2px solid green;
   border-radius: 10px;
-  width: 100%;
+  width: 30rem;
   height: auto;
   display: flex;
   flex-direction: row;
@@ -10,7 +20,7 @@
   margin-bottom: 1rem;
   position: relative;
   padding: 1.5rem;
-  gap: 4rem;
+  /* gap: 4rem; */
 }
 
 .containerDesign > h2 {

@@ -1,8 +1,7 @@
 import Layout from "@/components/Layout";
 import { useState } from "react";
-import styles from "@/styles/stylesForm/register.module.css";
-import Image from "next/image";
-import ButtonSelectForm from "@/components/ButtonSelect";
+import styles from "@/styles/pages/form/principalPageForm.module.css";
+import HomeForm from "@/components/form/BasicForm/HomeForm";
 import DeleteDesign from "@/components/form/Delete/deleteDesign";
 import { GetStaticProps } from "next";
 import { getDesigns } from "@/libs/designs";
@@ -30,32 +29,14 @@ const DeletePage = ({ designs, designers }: Props) => {
     >
       <div className={styles.containerPrincipal}>
         {!deleteDesign && !deleteDesigner && (
-          <>
-            <div className={styles.containerButtons}>
-              <ButtonSelectForm
-                title="Eliminar un Diseño"
-                functionElement={showDesign}
-                selectClass="buttonUp"
-              />
-              <ButtonSelectForm
-                title="Eliminar un Diseñador"
-                functionElement={showDesigner}
-                selectClass="buttonUp"
-              />
-            </div>
-            <div className={styles.containerImage}>
-              <h2>
-                Elige una opción para poder hacer eliminar alguna información
-              </h2>
-              <Image
-                src="/imageForm/delete.png"
-                alt="Image Form Delete"
-                width={300}
-                height={300}
-                priority
-              />
-            </div>
-          </>
+          <HomeForm
+          firstTitle="Eliminar diseño"
+          secondTitle="Eliminar Diseñador"
+          titleImage="Selecciona una opción para eliminar"
+          image="/imageForm/delete.png"
+          showDesign={showDesign}
+          showDesigner={showDesigner}
+        />
         )}
 
         {deleteDesign && <DeleteDesign designs={designs} />}

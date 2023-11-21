@@ -7,7 +7,7 @@ import ButtonSelectForm from "../ButtonSelect";
 
 const CardDesign = ({ designList }: Props) => {
   return (
-    <div>
+    <div className={styles.principalContainer}>
       {designList.map((design) => (
         <div key={design._id} className={styles.containerDesign}>
           <h2>{design.category}</h2>

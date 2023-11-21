@@ -1,4 +1,3 @@
-import styles from "@/styles/pages/form/stylesForm/updateDesigner.module.css";
 import CardUpdateDesigner from "@/components/CardUpdateDesigner";
 import { getDesigners } from "@/libs/designers";
 import { Designer, DesignerExtended } from "@/types";
@@ -7,6 +6,7 @@ import { GetStaticProps } from "next";
 import { useEffect, useState } from "react";
 import useSWR from "swr";
 import DesignerForm from "../../BasicForm/designerForm";
+import FormUpdate from "@/components/form/Update/formUpdate";
 
 const defaultDesigner: DesignerExtended = {
   _id: "",
@@ -45,35 +45,16 @@ const UpdateDesignerPage = ({ designers }: Props) => {
   }, [idChange]);
 
   return (
-    <div className={styles.updateDesign}>
-      <div className={styles.containerSelect}>
-        <h2>Selecciona el diseñador que deseas modificar</h2>
-        <select
-          onChange={(e) => {
-            setIdChange(e.target.value);
-          }}
-        >
-          {designerList.map((designer) => (
-            <option key={designer._id} value={designer._id}>
-              {designer.name} {designer.surname}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      <div className={styles.update}>
-        <div className={styles.containerCurrent}>
-          <CardUpdateDesigner
-            individualDesigner={individualDesigner || defaultDesigner}
-          />
-        </div>
-
-        <div className={styles.hola}>
-          <h2>Introduce los datos que deseas modificar</h2>
-          <DesignerForm />
-        </div>
-      </div>
-    </div>
+    <FormUpdate
+      change={setIdChange}
+      list={designerList}
+      currentInformation={
+        <CardUpdateDesigner
+          individualDesigner={individualDesigner || defaultDesigner}
+        />
+      }
+      formUpdate={<DesignerForm />}
+    />
   );
 };
 

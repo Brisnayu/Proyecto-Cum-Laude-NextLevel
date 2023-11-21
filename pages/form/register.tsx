@@ -1,11 +1,10 @@
 import Layout from "@/components/Layout";
 import { useState } from "react";
 import styles from "@/styles/pages/form/principalPageForm.module.css";
-import Image from "next/image";
-import ButtonSelectForm from "@/components/ButtonSelect";
 import FormRegister from "@/components/form/Register/formRegister";
 import DesignForm from "@/components/form/BasicForm/designForm";
 import DesignerForm from "@/components/form/BasicForm/designerForm";
+import HomeForm from "@/components/form/BasicForm/HomeForm";
 
 const RegisterPage = () => {
   const [registerDesign, setRegisterDesign] = useState<boolean>(false);
@@ -28,29 +27,14 @@ const RegisterPage = () => {
     >
       <div className={styles.containerPrincipal}>
         {!registerDesign && !registerDesigner && (
-          <>
-            <div className={styles.containerButtons}>
-              <ButtonSelectForm
-                title="Nuevo Diseño"
-                functionElement={showDesign}
-                selectClass="buttonUp"
-              />
-              <ButtonSelectForm
-                title="Nuevo Diseñador"
-                functionElement={showDesigner}
-                selectClass="buttonUp"
-              />
-            </div>
-            <div className={styles.containerImage}>
-              <h2>Elige una opción para poder hacer un nuevo registro</h2>
-              <Image
-                src="/imageForm/register.png"
-                alt="Image Form Register"
-                width={300}
-                height={300}
-              />
-            </div>
-          </>
+          <HomeForm
+            firstTitle="Nuevo Diseño"
+            secondTitle="Nuevo Diseñador"
+            titleImage="Elige una opción para poder hacer un nuevo registro"
+            image="/imageForm/register.png"
+            showDesign={showDesign}
+            showDesigner={showDesigner}
+          />
         )}
 
         {registerDesign && (

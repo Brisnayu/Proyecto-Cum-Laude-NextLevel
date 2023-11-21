@@ -3,8 +3,8 @@ import { Design, DesignExtended } from "@/types";
 import { fetcher } from "@/utils/fetcher";
 import { useEffect, useState } from "react";
 import useSWR from "swr";
-import styles from "@/styles/stylesForm/stylesUpdate/updateDesign.module.css";
 import DesignForm from "../../BasicForm/designForm";
+import FormUpdate from "@/components/form/Update/formUpdate";
 
 const defaultDesign: DesignExtended = {
   _id: "",
@@ -26,7 +26,6 @@ const defaultDesign: DesignExtended = {
 };
 
 const UpdateDesignPage = ({ designs }: Props) => {
-  //   console.log(designs);
 
   const { data, error } = useSWR("/api/designs", fetcher, {
     refreshInterval: 300000,
@@ -50,39 +49,19 @@ const UpdateDesignPage = ({ designs }: Props) => {
     fetchDesign();
   }, [idChange]);
 
-  console.log(individualDesign);
+  // console.log(individualDesign);
 
   return (
-      <div className={styles.updateDesign}>
-        <div className={styles.containerSelect}>
-          <h2>Selecciona el modelo que deseas modificar: </h2>
-          <select
-            onChange={(e) => {
-              setIdChange(e.target.value);
-            }}
-          >
-            {designList.map((design) => (
-              <option key={design._id} value={design._id}>
-                {design.name}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className={styles.update}>
-          <div className={styles.containerCurrent}>
-            <CardUpdateDesign
-              individualDesign={individualDesign || defaultDesign}
-            />
-          </div>
-
-          <div className={styles.hola}>
-            <h2>Introduce los datos que deseas modificar</h2>
-            <DesignForm />
-          </div>
-
-        </div>
-      </div>
+    <FormUpdate
+      change={setIdChange}
+      list={designList}
+      currentInformation={
+        <CardUpdateDesign
+          individualDesign={individualDesign || defaultDesign}
+        />
+      }
+      formUpdate={<DesignForm />}
+    />
   );
 };
 

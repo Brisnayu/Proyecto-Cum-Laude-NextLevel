@@ -1,14 +1,13 @@
 import Layout from "@/components/Layout";
 import { useState } from "react";
-import styles from "@/styles/stylesForm/register.module.css";
-import Image from "next/image";
-import ButtonSelectForm from "@/components/ButtonSelect";
+import styles from "@/styles/pages/form/principalPageForm.module.css";
 import UpdateDesignPage from "@/components/form/Update/UpdateDesign/updateDesign";
 import { getDesigns } from "@/libs/designs";
 import { GetStaticProps } from "next";
 import { Design, Designer } from "@/types";
 import UpdateDesignerPage from "@/components/form/Update/UpdateDesigner/updateDesigner";
 import { getDesigners } from "@/libs/designers";
+import HomeForm from "@/components/form/BasicForm/HomeForm";
 
 const UpdatePage = ({ designs, designers }: Props) => {
   const [updateDesign, setUpdateDesign] = useState<boolean>(false);
@@ -31,36 +30,18 @@ const UpdatePage = ({ designs, designers }: Props) => {
     >
       <div className={styles.containerPrincipal}>
         {!updateDesign && !updateDesigner && (
-          <>
-            <div className={styles.containerButtons}>
-              <ButtonSelectForm
-                title="Actualizar un diseño"
-                functionElement={showDesign}
-                selectClass="buttonUp"
-              />
-              <ButtonSelectForm
-                title="Actualizar un diseñador"
-                functionElement={showDesigner}
-                selectClass="buttonUp"
-              />
-            </div>
-            <div className={styles.containerImage}>
-              <h2>¿Qué deseas actualizar?</h2>
-              <Image
-                src="/imageForm/update.png"
-                alt="Image Form Update"
-                width={300}
-                height={300}
-                priority
-              />
-            </div>
-          </>
+          <HomeForm 
+          firstTitle="Actualizar un diseño"
+          secondTitle="Actualizar un diseñador"
+          titleImage="¿Qué deseas actualizar?"
+          image="/imageForm/update.png"
+          showDesign={showDesign} 
+          showDesigner={showDesigner} />
         )}
 
         {updateDesign && <UpdateDesignPage designs={designs} />}
-        {updateDesigner && <UpdateDesignerPage designers={designers}/>}
+        {updateDesigner && <UpdateDesignerPage designers={designers} />}
       </div>
-      
     </Layout>
   );
 };
@@ -83,4 +64,4 @@ export type Props = {
   designers: Designer[];
 };
 
-export default UpdatePage
+export default UpdatePage;

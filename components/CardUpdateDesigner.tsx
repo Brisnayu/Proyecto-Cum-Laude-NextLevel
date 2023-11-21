@@ -1,4 +1,4 @@
-import styles from "@/styles/stylesForm/updateDesigner.module.css";
+import styles from "@/styles/pages/form/stylesForm/updateDesigner.module.css";
 import { DesignerExtended } from "@/types";
 import Image from "next/image";
 
@@ -24,7 +24,6 @@ const CardUpdateDesigner = ({
           <h2>
             Apellido: <span>{individualDesigner.surname}</span>
           </h2>
-          <br />
           <h2>
             Nacionalidad: <span>{individualDesigner.nationality}</span>
           </h2>

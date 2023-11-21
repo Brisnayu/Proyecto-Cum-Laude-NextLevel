@@ -12,19 +12,3 @@
   text-align: center;
 }
 
-.containerButtons {
-  width: 50%;
-  height: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4rem;
-  /* border: 1px solid blue; */
-}
-
-.containerImage {
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
