@@ -23,11 +23,9 @@ const PrincipalUser = ({ setUser }: PrincipalUserProps) => {
   } = useForm<UserForm>();
 
   const onSubmit: SubmitHandler<UserForm> = async (formData) => {
-    console.log("ESTOS SON LOS VALORES DEL FORMULARIO", formData);
+    // console.log("ESTOS SON LOS VALORES DEL FORMULARIO", formData);
 
     const dataParse = JSON.stringify(formData);
-
-    console.log("Cómo está llegando esto", dataParse);
 
     try {
       const response = await fetch(
@@ -43,6 +41,12 @@ const PrincipalUser = ({ setUser }: PrincipalUserProps) => {
 
       if (response.ok) {
         setUser(true);
+        const userJson = await response.json();
+        console.log("AQUÍ ESTÁ LA RESPUETA", userJson)
+
+        const authToken = userJson.token;
+        console.log("AQUÍ ESTÁ LA RESPUETA", authToken)
+        localStorage.setItem("authToken", authToken);
         // window.location.href = "/form/register";
       } else {
         console.log("ERROR", response.status);

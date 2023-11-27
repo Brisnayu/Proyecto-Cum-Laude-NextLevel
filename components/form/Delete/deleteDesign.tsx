@@ -2,14 +2,13 @@ import { getDesigns } from "@/libs/designs";
 import { Design } from "@/types";
 import { fetcher } from "@/utils/fetcher";
 import { GetStaticProps } from "next";
-import Image from "next/image";
-import Link from "next/link";
 import useSWR from "swr";
-import ButtonBack from "@/components/ButtonBack";
 import styles from "@/styles/design.module.css";
 import CardDesign from "@/components/design/CardDesign";
+import { useState } from "react";
 
 const DeleteDesign = ({ designs }: Props) => {
+
   const { data, error } = useSWR("/api/designs", fetcher, {
     refreshInterval: 300000,
   });
