@@ -4,18 +4,36 @@ import { Design } from "@/types";
 import { GetStaticProps } from "next";
 import Image from "next/image";
 import ButtonSelect from "../ButtonSelect";
-import ModalForm from "../form/ModalForm";
 import { useState } from "react";
 
 const CardDesign = ({ designList }: Props) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [deleteElement, setDeleteElement] = useState(new Set());
+  const [selectedDesigns, setSelectedDesigns] = useState(new Set());
 
-  const openModal = () => {
-    setIsOpen(true);
+  const toggleDesignSelection = (designId: string) => {
+    const newSelectedDesigns = new Set(selectedDesigns);
+
+    if (newSelectedDesigns.has(designId)) {
+      newSelectedDesigns.delete(designId);
+    } else {
+      newSelectedDesigns.add(designId);
+    }
+
+    setSelectedDesigns(newSelectedDesigns);
   };
 
-  const closeModal = () => {
-    setIsOpen(false);
+  const deletedElement = (designId: string) => {
+    const newDeletedElement = new Set(deleteElement);
+
+    console.log("ESTOY DENTRO DE ESTO");
+
+    if (newDeletedElement.has(designId)) {
+      newDeletedElement.delete(designId);
+    } else {
+      newDeletedElement.add(designId);
+    }
+
+    setDeleteElement(newDeletedElement);
   };
 
   const tokenAuth = async (id: string) => {
@@ -49,7 +67,6 @@ const CardDesign = ({ designList }: Props) => {
         );
       } else {
         console.log("Información eliminada correctamente.");
-        closeModal();
       }
     } catch (error) {
       console.error("Error al realizar la solicitud DELETE:", error);
@@ -59,47 +76,61 @@ const CardDesign = ({ designList }: Props) => {
   return (
     <div className={styles.principalContainer}>
       {designList.map((design) => (
-        <div key={design._id} className={styles.containerDesign}>
-          <h2>{design.category}</h2>
-          <Image
-            className={styles.imageDesign}
-            src={design.images[0]}
-            alt={design.name}
-            width={80}
-            height={80}
-            priority
-          />
-          <div className={styles.containerText}>
-            <h2>{design.name}</h2>
-            <p>Año de lanzamiento: {design.year}</p>
-            {/* <p>{design.summary}</p> */}
-          </div>
-          <ButtonSelect
-            title="Eliminar"
-            selectClass="buttonRun"
-            selectSecondClass="buttonDelete"
-            functionElement={() => openModal()}
-          />
-          <ModalForm isOpen={isOpen} closeModal={closeModal}>
-            <div className={styles.infoModal}>
-              <h3>¿Seguro que quieres eliminar el siguiente elemento?</h3>
-              <h2>{design.name}</h2>
+        <div
+          key={design._id}
+          className={styles.containerDesign}
+            
+        >
+          {selectedDesigns.has(design._id) ? (
+            <div className={styles.containerDelete}>
+              <h3>¿Quieres eliminar ese elemento?</h3>
               <div className={styles.buttonsModal}>
                 <ButtonSelect
                   title="Sí"
                   selectClass="buttonRun"
                   selectSecondClass="buttonSend"
-                  functionElement={() => tokenAuth(design._id)}
+                  functionElement={() => {
+                    tokenAuth(design._id);
+                    deletedElement(design._id);
+                    toggleDesignSelection(design._id);
+                  }}
                 />
                 <ButtonSelect
                   title="No"
                   selectClass="buttonRun"
                   selectSecondClass="buttonDelete"
-                  functionElement={() => closeModal()}
+                  functionElement={() => toggleDesignSelection(design._id)}
                 />
               </div>
             </div>
-          </ModalForm>
+          ) : (
+            <div
+              className={`${styles.containerInformation} ${
+                deleteElement.has(design._id) ? styles.deleteElement : ""
+              }`}
+            >
+              <h2>{design.category}</h2>
+              <Image
+                className={styles.imageDesign}
+                src={design.images[0]}
+                alt={design.name}
+                width={80}
+                height={80}
+                priority
+              />
+              <div className={styles.containerText}>
+                <h2>{design.name}</h2>
+                <p>Año de lanzamiento: {design.year}</p>
+                {/* <p>{design.summary}</p> */}
+              </div>
+              <ButtonSelect
+                title="Eliminar"
+                selectClass="buttonRun"
+                selectSecondClass="buttonDelete"
+                functionElement={() => toggleDesignSelection(design._id)}
+              />
+            </div>
+          )}
         </div>
       ))}
     </div>
