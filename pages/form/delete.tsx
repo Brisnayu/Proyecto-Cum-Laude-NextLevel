@@ -7,6 +7,7 @@ import { GetStaticProps } from "next";
 import { getDesigns } from "@/libs/designs";
 import { getDesigners } from "@/libs/designers";
 import { Design, Designer } from "@/types";
+import DeleteDesigner from "@/components/form/Delete/deleteDesigner";
 
 const DeletePage = ({ designs, designers }: Props) => {
   const [deleteDesign, setDeleteDesign] = useState<boolean>(false);
@@ -40,7 +41,7 @@ const DeletePage = ({ designs, designers }: Props) => {
         )}
 
         {deleteDesign && <DeleteDesign designs={designs} />}
-        {deleteDesigner && <DeleteDesign designs={designs} />}
+        {deleteDesigner && <DeleteDesigner designers={designers} />}
       </div>
     </Layout>
   );

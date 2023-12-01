@@ -5,7 +5,6 @@ import { GetStaticProps } from "next";
 import useSWR from "swr";
 import styles from "@/styles/design.module.css";
 import CardDesign from "@/components/design/CardDesign";
-import { useState } from "react";
 
 const DeleteDesign = ({ designs }: Props) => {
 
