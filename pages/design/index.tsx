@@ -8,6 +8,7 @@ import Link from "next/link";
 import useSWR from "swr";
 import ButtonBack from "@/components/ButtonBack";
 import styles from "@/styles/design.module.css";
+import GoBack from "@/components/GoBack";
 
 const DesignPage = ({ designs }: Props) => {
   const { data, error } = useSWR("/api/designs", fetcher, {
@@ -51,20 +52,8 @@ const DesignPage = ({ designs }: Props) => {
         </div>
       ))}
 
-      <div
-        className={styles.containerButtonBack}
-        style={{
-          width: "100%",
-          height: "30vh",
-          backgroundImage: "url('/sillitas1.jpg')",
-          backgroundSize: "20rem 20rem",
-          backgroundRepeat: "repeat",
-        }}
-      >
-        <Link href="/">
-          <ButtonBack title="Volver" color="button" />
-        </Link>
-      </div>
+      <GoBack direction="/" />
+      
     </Layout>
   );
 };

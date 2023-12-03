@@ -8,6 +8,7 @@ import { Design, Designer } from "@/types";
 import UpdateDesignerPage from "@/components/form/Update/UpdateDesigner/updateDesigner";
 import { getDesigners } from "@/libs/designers";
 import HomeForm from "@/components/form/BasicForm/HomeForm";
+import GoBack from "@/components/GoBack";
 
 const UpdatePage = ({ designs, designers }: Props) => {
   const [updateDesign, setUpdateDesign] = useState<boolean>(false);
@@ -42,6 +43,9 @@ const UpdatePage = ({ designs, designers }: Props) => {
         {updateDesign && <UpdateDesignPage designs={designs} />}
         {updateDesigner && <UpdateDesignerPage designers={designers} />}
       </div>
+
+      <GoBack direction="/form" />
+      
     </Layout>
   );
 };

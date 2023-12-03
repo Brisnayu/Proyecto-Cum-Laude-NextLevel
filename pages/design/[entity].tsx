@@ -8,6 +8,7 @@ import { v4 as uuidv4 } from "uuid";
 import styles from "@/styles/pages/design/oneDesign.module.css";
 import Card from "@/components/Card";
 import ButtonBack from "@/components/ButtonBack";
+import GoBack from "@/components/GoBack";
 
 const EntityPage = () => {
   const router = useRouter();
@@ -110,20 +111,8 @@ const EntityPage = () => {
         </div>
       )}
 
-      <div
-        className={styles.containerButtonBack}
-        style={{
-          width: "100%",
-          height: "30vh",
-          backgroundImage: "url('/sillitas1.jpg')",
-          backgroundSize: "20rem 20rem",
-          backgroundRepeat: "repeat",
-        }}
-      >
-        <Link href="/design">
-          <ButtonBack title="Volver" color="button" />
-        </Link>
-      </div>
+      <GoBack direction="/design" />
+      
     </Layout>
   );
 };

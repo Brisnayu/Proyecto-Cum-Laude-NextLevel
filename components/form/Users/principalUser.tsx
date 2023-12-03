@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import styles from "@/styles/pages/form/user.module.css";
 import ButtonSelect from "@/components/ButtonSelect";
@@ -42,10 +41,10 @@ const PrincipalUser = ({ setUser }: PrincipalUserProps) => {
       if (response.ok) {
         setUser(true);
         const userJson = await response.json();
-        console.log("AQUÍ ESTÁ LA RESPUETA", userJson)
+        // console.log("AQUÍ ESTÁ LA RESPUETA", userJson)
 
         const authToken = userJson.token;
-        console.log("AQUÍ ESTÁ LA RESPUETA", authToken)
+        // console.log("AQUÍ ESTÁ LA RESPUETA", authToken)
         localStorage.setItem("authToken", authToken);
         // window.location.href = "/form/register";
       } else {

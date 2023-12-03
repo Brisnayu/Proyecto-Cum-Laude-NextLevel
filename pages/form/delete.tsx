@@ -8,6 +8,7 @@ import { getDesigns } from "@/libs/designs";
 import { getDesigners } from "@/libs/designers";
 import { Design, Designer } from "@/types";
 import DeleteDesigner from "@/components/form/Delete/deleteDesigner";
+import GoBack from "@/components/GoBack";
 
 const DeletePage = ({ designs, designers }: Props) => {
   const [deleteDesign, setDeleteDesign] = useState<boolean>(false);
@@ -31,18 +32,20 @@ const DeletePage = ({ designs, designers }: Props) => {
       <div className={styles.containerPrincipal}>
         {!deleteDesign && !deleteDesigner && (
           <HomeForm
-          firstTitle="Eliminar diseño"
-          secondTitle="Eliminar Diseñador"
-          titleImage="Selecciona una opción para eliminar"
-          image="/imageForm/delete.png"
-          showDesign={showDesign}
-          showDesigner={showDesigner}
-        />
+            firstTitle="Eliminar diseño"
+            secondTitle="Eliminar Diseñador"
+            titleImage="Selecciona una opción para eliminar"
+            image="/imageForm/delete.png"
+            showDesign={showDesign}
+            showDesigner={showDesigner}
+          />
         )}
 
         {deleteDesign && <DeleteDesign designs={designs} />}
         {deleteDesigner && <DeleteDesigner designers={designers} />}
       </div>
+
+      <GoBack direction="/form" />
     </Layout>
   );
 };

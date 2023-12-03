@@ -4,6 +4,7 @@ import styles from "@/styles/pages/form/indexForm.module.css";
 import ButtonSelect from "@/components/ButtonSelect";
 import PrincipalUser from "@/components/form/Users/principalUser";
 import { useState } from "react";
+import GoBack from "@/components/GoBack";
 
 const FormPage = () => {
   const [user, setUser] = useState<boolean>(false);
@@ -53,6 +54,8 @@ const FormPage = () => {
               </p>
             </div>
           </div>
+
+          <GoBack direction="/form" />
         </>
       )}
     </Layout>

@@ -5,6 +5,7 @@ import FormRegister from "@/components/form/Register/formRegister";
 import DesignForm from "@/components/form/BasicForm/designForm";
 import DesignerForm from "@/components/form/BasicForm/designerForm";
 import HomeForm from "@/components/form/BasicForm/HomeForm";
+import GoBack from "@/components/GoBack";
 
 const RegisterPage = () => {
   const [registerDesign, setRegisterDesign] = useState<boolean>(false);
@@ -55,6 +56,9 @@ const RegisterPage = () => {
           </FormRegister>
         )}
       </div>
+
+      <GoBack direction="/form" />
+      
     </Layout>
   );
 };

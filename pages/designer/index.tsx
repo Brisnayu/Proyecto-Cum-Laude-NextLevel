@@ -9,6 +9,7 @@ import ButtonBack from "@/components/ButtonBack";
 import styles from "@/styles/designer.module.css";
 import CardDesigner from "@/components/CardDesigner";
 import { v4 as uuidv4 } from "uuid";
+import GoBack from "@/components/GoBack";
 
 const DesignerPage = ({ designers }: Props) => {
   const { data, error } = useSWR("/api/designers", fetcher, {
@@ -42,20 +43,7 @@ const DesignerPage = ({ designers }: Props) => {
         ))}
       </div>
 
-      <div
-        className={styles.containerButtonBack}
-        style={{
-          width: "100%",
-          height: "14vh",
-          backgroundImage: "url('/sillitas1.jpg')",
-          backgroundSize: "20rem 20rem",
-          backgroundRepeat: "repeat",
-        }}
-      >
-        <Link href="/">
-          <ButtonBack title="Volver" color="button" />
-        </Link>
-      </div>
+      <GoBack direction="/"/>
     </Layout>
   );
 };

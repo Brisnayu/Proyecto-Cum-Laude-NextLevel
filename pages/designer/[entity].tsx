@@ -5,8 +5,8 @@ import { DesignerExtended } from "@/types";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import styles from "@/styles/pages/designer/oneDesigner.module.css";
-import Card from "@/components/Card";
 import ButtonBack from "@/components/ButtonBack";
+import GoBack from "@/components/GoBack";
 
 const EntityPage = () => {
   const router = useRouter();
@@ -83,21 +83,9 @@ const EntityPage = () => {
           </div>
         </div>
       </div>
+      
+      <GoBack direction="/designer"/>
 
-      <div
-        className={styles.containerButtonBack}
-        style={{
-          width: "100%",
-          height: "14vh",
-          backgroundImage: "url('/sillitas1.jpg')",
-          backgroundSize: "20rem 20rem",
-          backgroundRepeat: "repeat",
-        }}
-      >
-        <Link href="/designer">
-          <ButtonBack title="Volver" color="button" />
-        </Link>
-      </div>
     </Layout>
   );
 };
