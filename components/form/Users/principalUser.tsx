@@ -81,6 +81,7 @@ const PrincipalUser = ({ setUser }: PrincipalUserProps) => {
           <ButtonSelect
             title="ENVIAR"
             selectClass="buttonRun"
+            selectSecondClass="buttonSend"
             type="submit"
           />
         </form>

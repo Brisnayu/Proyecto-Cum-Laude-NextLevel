@@ -5,6 +5,7 @@ import ButtonSelect from "@/components/ButtonSelect";
 import PrincipalUser from "@/components/form/Users/principalUser";
 import { useState } from "react";
 import GoBack from "@/components/GoBack";
+import RegisterNewUser from "@/components/form/Users/registerNewUser";
 
 const FormPage = () => {
   const [user, setUser] = useState<boolean>(false);
@@ -17,7 +18,10 @@ const FormPage = () => {
       image="/silla.png"
     >
       {user === false ? (
-        <PrincipalUser setUser={setUser} />
+        <div className={styles.containerUsers}>
+          <PrincipalUser setUser={setUser} />
+          <RegisterNewUser setUser={setUser} />
+        </div>
       ) : (
         <>
           <h1>¿Qué deseas hacer?</h1>

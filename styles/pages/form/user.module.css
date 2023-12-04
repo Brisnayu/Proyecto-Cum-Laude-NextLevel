@@ -1,25 +1,11 @@
-.containerFormUser {
-  /* border: 2px solid red; */
-  background-image: url("/IA.jpg");
-  background-size: contain;
-  background-position: center center;
-  background-repeat: repeat;
-  width: 100%;
-  height: 82vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  justify-content: center;
-  position: absolute;
-}
+
 
 .containerFormUser > form {
   border: 3px solid black;
-  width: 80%;
+  width: 100%;
   padding: 2rem;
-  opacity: 0.95;
-  border-radius: 8px;
+  /* opacity: 0.95; */
+  /* border-radius: 8px; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -43,6 +29,7 @@
   font-size: 1.2em;
   border-radius: 8px;
   color: #1c5f20;
+  border: 2px solid green;
 }
 
 .containerInput input:focus {
@@ -60,7 +47,7 @@
 }
 
 .containerFormUser button {
-  width: 20%;
+  width: 50%;
   padding: 0.5rem;
   border: 2px solid black;
   border-radius: 20px;

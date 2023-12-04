@@ -5,7 +5,6 @@ import { DesignerExtended } from "@/types";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import styles from "@/styles/pages/designer/oneDesigner.module.css";
-import ButtonBack from "@/components/ButtonBack";
 import GoBack from "@/components/GoBack";
 
 const EntityPage = () => {

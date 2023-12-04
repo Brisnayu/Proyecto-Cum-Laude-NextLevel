@@ -1,3 +1,18 @@
+.containerUsers {
+  background-image: url("/IA.jpg");
+  background-size: contain;
+  background-position: center center;
+  background-repeat: repeat;
+  padding: 2rem 0;
+  width: 100%;
+  /*height: 82vh; */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+  justify-content: space-evenly;
+}
+
 .containerPrincipal {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -24,7 +39,7 @@
 }
 
 .containerElements:hover > p {
-  opacity: 1; 
+  opacity: 1;
   /* border: 3px solid blue; */
   transition: all 3s;
 }

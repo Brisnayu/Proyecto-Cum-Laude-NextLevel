@@ -1,5 +1,4 @@
 import Layout from "@/components/Layout";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { DesignExtended } from "@/types";
 import { useEffect, useState } from "react";
@@ -7,7 +6,6 @@ import Image from "next/image";
 import { v4 as uuidv4 } from "uuid";
 import styles from "@/styles/pages/design/oneDesign.module.css";
 import Card from "@/components/Card";
-import ButtonBack from "@/components/ButtonBack";
 import GoBack from "@/components/GoBack";
 
 const EntityPage = () => {
@@ -41,7 +39,7 @@ const EntityPage = () => {
       image="/silla.png"
     >
       <div
-        className={styles.containerPrueba}
+        className={styles.containerPrincipal}
         style={{
           width: "100%",
           height: "50vh",
@@ -98,7 +96,7 @@ const EntityPage = () => {
               priority
             />
           </div>
-          <div className={styles.textDesigner}>
+          <div>
             <h2>
               {individualDesign.designer.name}{" "}
               {individualDesign.designer.surname}
@@ -112,7 +110,7 @@ const EntityPage = () => {
       )}
 
       <GoBack direction="/design" />
-      
+
     </Layout>
   );
 };

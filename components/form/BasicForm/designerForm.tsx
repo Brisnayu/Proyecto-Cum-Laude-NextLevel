@@ -158,7 +158,6 @@ const DesignerForm = () => {
                   id="image"
                   onChange={(e) => {
                     field.onChange(e.target.files?.[0]),
-                      console.log("que es esto", e.target.files?.[0]);
                     handleFileChange(e);
                   }}
                 />

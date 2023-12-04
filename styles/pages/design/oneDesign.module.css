@@ -34,7 +34,7 @@
   box-shadow: -23px -17px 0px 1px rgba(0, 0, 0, 1);
 }
 
-.containerPrueba {
+.containerPrincipal {
   /* border: 2px solid green; */
   width: 100%;
   height: 25rem;
@@ -72,25 +72,6 @@
   scale: 1.3;
 }
 
-.prueba {
-  /* border: 2px solid red; */
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* .wallpaper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 50vh;
-  background-image: url("/wallpaper.jpg");
-  background-size: 30rem 30rem;
-  background-repeat: repeat;
-} */
-
 .containerCard {
   display: flex;
   justify-content: space-evenly;
@@ -102,17 +83,6 @@
   width: 100%;
   height: 100%;
   gap: 2rem;
-}
-
-.containerButtonBack {
-  width: 100%;
-  height: 20vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #eaf6eb;
-  border-bottom: 2px solid black;
-  border-top: 2px solid black;
 }
 
 @media screen and (max-width: 720px) {
