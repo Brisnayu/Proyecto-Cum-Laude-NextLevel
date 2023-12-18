@@ -2,13 +2,24 @@ import Layout from "@/components/Layout";
 import Link from "next/link";
 import styles from "@/styles/pages/form/indexForm.module.css";
 import ButtonSelect from "@/components/ButtonSelect";
-import PrincipalUser from "@/components/form/Users/principalUser";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import GoBack from "@/components/GoBack";
 import RegisterNewUser from "@/components/form/Users/registerNewUser";
 
 const FormPage = () => {
   const [user, setUser] = useState<boolean>(false);
+
+  useEffect(() => {
+    const usuarioGuardado = localStorage.getItem("user");
+
+    if (usuarioGuardado !== null) {
+      const usuarioParseado = JSON.parse(usuarioGuardado);
+      setUser(true);
+      console.log("ESTO ES LO QUE ESTOY BUSCANDO!", usuarioParseado);
+    } else {
+      console.log("No hay datos de usuario en el localStorage.");
+    }
+  }, [user]);
 
   return (
     <Layout
@@ -19,7 +30,6 @@ const FormPage = () => {
     >
       {user === false ? (
         <div className={styles.containerUsers}>
-          <PrincipalUser setUser={setUser} />
           <RegisterNewUser setUser={setUser} />
         </div>
       ) : (

@@ -1,0 +1,34 @@
+.containerUserBox {
+  width: 100%;
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.userBox {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  width: 100%;
+}
+
+.containerUser {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  /* border: 5px solid red; */
+}
+
+.containerUserBox button:last-child {
+  /* border: 2px solid green; */
+  position: absolute;
+  bottom: 1.5rem;
+  right: 1rem;
+}
+
+.updateAvatar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}

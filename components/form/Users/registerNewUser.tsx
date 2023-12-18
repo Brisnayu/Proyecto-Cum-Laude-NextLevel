@@ -66,8 +66,6 @@ const RegisterNewUser = ({ setUser }: RegisterNewUserProps) => {
       res.json()
     );
 
-    console.log("función!", response.data);
-
     for (const emailUser of response.data) {
       console.log(emailUser.email);
       if (emailUser.email === formData.email) {
@@ -93,6 +91,7 @@ const RegisterNewUser = ({ setUser }: RegisterNewUserProps) => {
         const authToken = userJson.token;
         // console.log("AQUÍ ESTÁ LA RESPUETA", authToken)
         localStorage.setItem("authToken", authToken);
+        localStorage.setItem("user", JSON.stringify(userJson));
         console.log("TODO OK", userJson);
         // window.location.href = "/form/register";
       } else {

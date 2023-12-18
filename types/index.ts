@@ -39,3 +39,11 @@ export type DesignExtended = Omit<Design, "designer"> & {
 export type DesignerExtended = Omit<Designer, "design"> & {
   design: DesignInDesigner[];
 };
+
+export type TypeUser = {
+  _id: string;
+  email: string;
+  name: string;
+  password: null;
+  avatar: string;
+}

@@ -1,0 +1,21 @@
+.boxContent {
+  border: 2px solid black;
+  border-radius: 10px;
+  width: 80%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 1rem;
+  position: relative;
+  padding: 3rem;
+  /* gap: 6rem; */
+}
+
+.boxContent > h2 {
+  /* border: 1px solid black; */
+  padding: 0 0.5rem;
+  position: absolute;
+  top: -15px;
+  left: 25px;
+}

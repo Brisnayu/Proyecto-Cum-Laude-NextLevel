@@ -1,30 +1,23 @@
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import styles from "@/styles/pages/form/user.module.css";
 import ButtonSelect from "@/components/ButtonSelect";
-import { useState } from "react";
+import { useRouter } from "next/router";
 
 export type UserForm = {
   email: string;
   password: string;
 };
 
-const PrincipalUser = ({ setUser }: PrincipalUserProps) => {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
+const PrincipalUser = () => {
+  const router = useRouter();
 
   const {
-    register,
     handleSubmit,
     control,
     formState: { errors },
   } = useForm<UserForm>();
 
   const onSubmit: SubmitHandler<UserForm> = async (formData) => {
-    // console.log("ESTOS SON LOS VALORES DEL FORMULARIO", formData);
-
-    const dataParse = JSON.stringify(formData);
 
     try {
       const response = await fetch(
@@ -39,14 +32,12 @@ const PrincipalUser = ({ setUser }: PrincipalUserProps) => {
       );
 
       if (response.ok) {
-        setUser(true);
         const userJson = await response.json();
-        // console.log("AQUÍ ESTÁ LA RESPUETA", userJson)
-
         const authToken = userJson.token;
-        // console.log("AQUÍ ESTÁ LA RESPUETA", authToken)
+
         localStorage.setItem("authToken", authToken);
-        // window.location.href = "/form/register";
+        localStorage.setItem("user", JSON.stringify(userJson));
+        router.push("/");
       } else {
         console.log("ERROR", response.status);
       }
@@ -88,10 +79,6 @@ const PrincipalUser = ({ setUser }: PrincipalUserProps) => {
       </div>
     </>
   );
-};
-
-export type PrincipalUserProps = {
-  setUser: (newValue: boolean) => void;
 };
 
 export default PrincipalUser;
