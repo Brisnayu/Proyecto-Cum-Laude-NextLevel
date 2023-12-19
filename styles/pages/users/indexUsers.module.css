@@ -27,8 +27,28 @@
   right: 1rem;
 }
 
+.containerUpdate {
+  width: 100%;
+}
+
 .updateAvatar {
   display: flex;
   justify-content: space-between;
   margin-bottom: 1rem;
+}
+
+.previewAvatar {
+  border: 1px solid green;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem;
+}
+
+.containerOtherUsers {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
 }

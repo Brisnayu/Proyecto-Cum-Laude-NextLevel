@@ -53,11 +53,11 @@ const Layout = ({ title, titlePage, description, image, children }: Props) => {
         </div>
 
         {!openUser ? (
-          <div>
+          <div className={styles.homeUser}>
             <p>Iniciar sesión</p>
             <Link href="/login">
               <Image
-                src="/logo-cat.png"
+                src="/closedUser.jpg"
                 alt="logo cat"
                 width={80}
                 height={80}
@@ -89,6 +89,7 @@ const Layout = ({ title, titlePage, description, image, children }: Props) => {
                   border: "2px solid #68bb6c",
                   borderRadius: "50%",
                   backgroundColor: "#68bb6c",
+                  objectFit: "cover",
                 }}
               />
             </Link>

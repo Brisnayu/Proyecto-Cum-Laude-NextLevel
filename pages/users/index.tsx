@@ -7,8 +7,12 @@ import ButtonSelect from "@/components/ButtonSelect";
 import { useRouter } from "next/router";
 import BoxContent from "@/components/BoxContent";
 import styles from "@/styles/pages/users/indexUsers.module.css";
+import { GetStaticProps } from "next";
+import { getUsers } from "@/libs/users";
+import useSWR from "swr";
+import { fetcher } from "@/utils/fetcher";
 
-const UserPage = () => {
+const UserPage = ({ users }: Props) => {
   const [openUser, setOpenUser] = useState<TypeUser>();
   const [previewAvatar, setPreviewAvatar] = useState<string>();
 
@@ -60,6 +64,13 @@ const UserPage = () => {
     }
   };
 
+  // USUARIOS!
+  const { data, error } = useSWR("/api/users", fetcher, {
+    refreshInterval: 300000,
+  });
+
+  const userList = (data?.users.data as TypeUser[]) || users;
+
   return (
     <Layout
       title="Page Registered User"
@@ -98,7 +109,7 @@ const UserPage = () => {
               </div>
             </div>
 
-            <div>
+            <div className={styles.containerUpdate}>
               <h3>Modificar avatar:</h3>
               <br />
               <div className={styles.updateAvatar}>
@@ -118,7 +129,19 @@ const UserPage = () => {
                 />
 
                 {previewAvatar && (
-                  <div>
+                  <div className={styles.previewAvatar}>
+                    <ButtonSelect
+                      title="Actualizar"
+                      type="submit"
+                      selectClass="buttonRun"
+                      selectSecondClass="buttonSend"
+                    />
+                    <ButtonSelect
+                      title="Cancelar"
+                      selectClass="buttonRun"
+                      selectSecondClass="buttonDelete"
+                      functionElement={() => setPreviewAvatar("")}
+                    />
                     <p>Vista previa:</p>
                     <Image
                       src={previewAvatar}
@@ -132,12 +155,6 @@ const UserPage = () => {
                         backgroundColor: "#68bb6c",
                         objectFit: "cover",
                       }}
-                    />
-                    <ButtonSelect
-                      title="Actualizar"
-                      type="submit"
-                      selectClass="buttonRun"
-                      selectSecondClass="buttonSend"
                     />
                   </div>
                 )}
@@ -156,9 +173,68 @@ const UserPage = () => {
 
       <div>
         <h3>Aquí van los usuarios registrados</h3>
+        <ButtonSelect
+          title="Consultar otros usuarios registrados"
+          selectClass="buttonUp"
+          selectSecondClass="buttonSend"
+        />
+      </div>
+      <div className={styles.containerOtherUsers}>
+        {userList.map((user) => (
+          <BoxContent title={user.name} key={user._id}>
+            <div className={styles.userBox}>
+              <div className={styles.containerUser}>
+                <Image
+                  src={
+                    user?.avatar !== undefined ? user.avatar : "/logo-cat.png"
+                  }
+                  alt="Avatar user"
+                  width={80}
+                  height={80}
+                  priority
+                  style={{
+                    border: "2px solid #68bb6c",
+                    borderRadius: "50%",
+                    backgroundColor: "#68bb6c",
+                    objectFit: "cover",
+                  }}
+                />
+                <div>
+                  <h3>
+                    Nombre: <span>{user.name}</span>
+                  </h3>
+                  <h3>
+                    email: <span>{user.email}</span>
+                  </h3>
+                </div>
+              </div>
+
+              <ButtonSelect
+                title="Eliminar usuario"
+                selectClass="buttonRun"
+                selectSecondClass="buttonDelete"
+              />
+            </div>
+          </BoxContent>
+        ))}
       </div>
     </Layout>
   );
+};
+
+export const getStaticProps: GetStaticProps = async () => {
+  const users = await getUsers();
+
+  return {
+    props: {
+      users: users,
+    },
+    revalidate: 30,
+  };
+};
+
+export type Props = {
+  users: TypeUser[];
 };
 
 export default UserPage;
