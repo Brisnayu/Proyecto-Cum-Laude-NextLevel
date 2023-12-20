@@ -25,8 +25,6 @@ const CardDesign = ({ designList }: Props) => {
   const deletedElement = (designId: string) => {
     const newDeletedElement = new Set(deleteElement);
 
-    console.log("ESTOY DENTRO DE ESTO");
-
     if (newDeletedElement.has(designId)) {
       newDeletedElement.delete(designId);
     } else {

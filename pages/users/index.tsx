@@ -9,12 +9,14 @@ import BoxContent from "@/components/BoxContent";
 import styles from "@/styles/pages/users/indexUsers.module.css";
 import { GetStaticProps } from "next";
 import { getUsers } from "@/libs/users";
-import useSWR from "swr";
-import { fetcher } from "@/utils/fetcher";
 
 const UserPage = ({ users }: Props) => {
   const [openUser, setOpenUser] = useState<TypeUser>();
   const [previewAvatar, setPreviewAvatar] = useState<string>();
+  const [viewUsers, setViewUsers] = useState<boolean>(false);
+
+  const [deleteElement, setDeleteElement] = useState(new Set());
+  const [selectedUser, setSelectedUser] = useState(new Set());
 
   const router = useRouter();
 
@@ -64,12 +66,64 @@ const UserPage = ({ users }: Props) => {
     }
   };
 
-  // USUARIOS!
-  const { data, error } = useSWR("/api/users", fetcher, {
-    refreshInterval: 300000,
-  });
+  // Eliminar elemento:
 
-  const userList = (data?.users.data as TypeUser[]) || users;
+  const toggleDesignSelection = (designId: string) => {
+    const newSelectedDesigns = new Set(selectedUser);
+
+    if (newSelectedDesigns.has(designId)) {
+      newSelectedDesigns.delete(designId);
+    } else {
+      newSelectedDesigns.add(designId);
+    }
+
+    setSelectedUser(newSelectedDesigns);
+  };
+
+  const deletedElement = (designId: string) => {
+    const newDeletedElement = new Set(deleteElement);
+
+    if (newDeletedElement.has(designId)) {
+      newDeletedElement.delete(designId);
+    } else {
+      newDeletedElement.add(designId);
+    }
+
+    setDeleteElement(newDeletedElement);
+  };
+
+  const tokenAuth = async (id: string) => {
+    const token = localStorage.getItem("authToken");
+
+    console.log(token);
+
+    if (token) {
+      await UserDelete(id, token);
+    } else {
+      console.error("Usuario no autenticado");
+    }
+  };
+
+  const UserDelete = async (id: string, token: string): Promise<void> => {
+    try {
+      const response = await fetch(`http://localhost:4001/api/user/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+      if (!response.ok) {
+        console.error(
+          `Error al eliminar la información. Código de estado: ${response.status}`
+        );
+      } else {
+        console.log("Información eliminada correctamente.");
+      }
+    } catch (error) {
+      console.error("Error al realizar la solicitud DELETE:", error);
+    }
+  };
 
   return (
     <Layout
@@ -171,53 +225,92 @@ const UserPage = ({ users }: Props) => {
         </BoxContent>
       </div>
 
-      <div>
-        <h3>Aquí van los usuarios registrados</h3>
+      <div className={styles.buttonViewUsers}>
+        <h3>Puedes consultar el resto de usuarios</h3>
         <ButtonSelect
-          title="Consultar otros usuarios registrados"
+          title={
+            viewUsers === false
+              ? "Mostrar usuarios registrados"
+              : "Ocultar usuarios registrados"
+          }
           selectClass="buttonUp"
           selectSecondClass="buttonSend"
+          functionElement={() => setViewUsers(!viewUsers)}
         />
       </div>
-      <div className={styles.containerOtherUsers}>
-        {userList.map((user) => (
-          <BoxContent title={user.name} key={user._id}>
-            <div className={styles.userBox}>
-              <div className={styles.containerUser}>
-                <Image
-                  src={
-                    user?.avatar !== undefined ? user.avatar : "/logo-cat.png"
-                  }
-                  alt="Avatar user"
-                  width={80}
-                  height={80}
-                  priority
-                  style={{
-                    border: "2px solid #68bb6c",
-                    borderRadius: "50%",
-                    backgroundColor: "#68bb6c",
-                    objectFit: "cover",
-                  }}
-                />
-                <div>
-                  <h3>
-                    Nombre: <span>{user.name}</span>
-                  </h3>
-                  <h3>
-                    email: <span>{user.email}</span>
-                  </h3>
-                </div>
-              </div>
 
-              <ButtonSelect
-                title="Eliminar usuario"
-                selectClass="buttonRun"
-                selectSecondClass="buttonDelete"
-              />
-            </div>
-          </BoxContent>
-        ))}
-      </div>
+      {viewUsers === true && (
+        <div className={styles.containerUserBox}>
+          {users.map((user) => (
+            <BoxContent title={user.name} key={user._id}>
+              {selectedUser.has(user._id) ? (
+                <div className={styles.containerDelete}>
+                  <h3>¿Quieres eliminar ese elemento?</h3>
+                  <div className={styles.buttonsModal}>
+                    <ButtonSelect
+                      title="Sí"
+                      selectClass="buttonRun"
+                      selectSecondClass="buttonSend"
+                      functionElement={() => {
+                        tokenAuth(user._id);
+                        deletedElement(user._id);
+                        toggleDesignSelection(user._id);
+                      }}
+                    />
+                    <ButtonSelect
+                      title="No"
+                      selectClass="buttonRun"
+                      selectSecondClass="buttonDelete"
+                      functionElement={() => toggleDesignSelection(user._id)}
+                    />
+                  </div>
+                </div>
+              ) : (
+                <div
+                  className={`${styles.userBox} ${
+                    deleteElement.has(user._id) ? styles.deleteElement : ""
+                  }`}
+                >
+                  <div className={styles.containerUser}>
+                    <Image
+                      src={
+                        user?.avatar !== undefined
+                          ? user.avatar
+                          : "/logo-cat.png"
+                      }
+                      alt="Avatar user"
+                      width={80}
+                      height={80}
+                      priority
+                      style={{
+                        border: "2px solid #68bb6c",
+                        borderRadius: "50%",
+                        backgroundColor: "#68bb6c",
+                        objectFit: "cover",
+                      }}
+                    />
+                    <div>
+                      <h3>
+                        Nombre: <span>{user.name}</span>
+                      </h3>
+                      <h3>
+                        email: <span>{user.email}</span>
+                      </h3>
+                    </div>
+                  </div>
+
+                  <ButtonSelect
+                    title="Eliminar usuario"
+                    selectClass="buttonRun"
+                    selectSecondClass="buttonDelete"
+                    functionElement={() => toggleDesignSelection(user._id)}
+                  />
+                </div>
+              )}
+            </BoxContent>
+          ))}
+        </div>
+      )}
     </Layout>
   );
 };

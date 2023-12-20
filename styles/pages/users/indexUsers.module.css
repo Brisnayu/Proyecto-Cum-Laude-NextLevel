@@ -46,9 +46,52 @@
   padding: 0.5rem;
 }
 
-.containerOtherUsers {
+.buttonViewUsers {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem;
+}
+
+.containerUserBox {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 1rem;
+}
+
+.containerUserBox h3 > span,
+.containerOtherUsers h3 > span {
+  font-weight: 100;
+}
+
+.deleteElement {
+  filter: grayscale();
+}
+
+.deleteElement > button {
+  display: none;
+}
+
+.containerDelete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  gap: 1rem;
+}
+
+.buttonsModal {
+  /* background-color: red; */
+  display: flex;
+  gap: 1rem;
+}
+
+.containerDelete button:last-child {
+  /* border: 2px solid blue; */
+  display: flex;
+  position: relative;
+  top: 0;
+  right: 0;
 }

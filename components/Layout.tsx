@@ -20,7 +20,7 @@ const Layout = ({ title, titlePage, description, image, children }: Props) => {
     }
   }, []);
 
-  console.log("Usuario registrado", openUser);
+  // console.log("Usuario registrado", openUser);
 
   return (
     <>
