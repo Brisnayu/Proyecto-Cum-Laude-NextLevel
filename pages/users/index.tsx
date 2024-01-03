@@ -9,6 +9,7 @@ import BoxContent from "@/components/BoxContent";
 import styles from "@/styles/pages/users/indexUsers.module.css";
 import { GetStaticProps } from "next";
 import { getUsers } from "@/libs/users";
+import GoBack from "@/components/GoBack";
 
 const UserPage = ({ users }: Props) => {
   const [openUser, setOpenUser] = useState<TypeUser>();
@@ -17,6 +18,10 @@ const UserPage = ({ users }: Props) => {
 
   const [deleteElement, setDeleteElement] = useState(new Set());
   const [selectedUser, setSelectedUser] = useState(new Set());
+
+  const registeredUsers = users.filter(
+    (element) => openUser !== undefined && element.email !== openUser.email
+  );
 
   const router = useRouter();
 
@@ -95,7 +100,7 @@ const UserPage = ({ users }: Props) => {
   const tokenAuth = async (id: string) => {
     const token = localStorage.getItem("authToken");
 
-    console.log(token);
+    // console.log(token);
 
     if (token) {
       await UserDelete(id, token);
@@ -241,7 +246,7 @@ const UserPage = ({ users }: Props) => {
 
       {viewUsers === true && (
         <div className={styles.containerUserBox}>
-          {users.map((user) => (
+          {registeredUsers.map((user) => (
             <BoxContent title={user.name} key={user._id}>
               {selectedUser.has(user._id) ? (
                 <div className={styles.containerDelete}>
@@ -311,6 +316,8 @@ const UserPage = ({ users }: Props) => {
           ))}
         </div>
       )}
+
+      <GoBack direction="/" />
     </Layout>
   );
 };

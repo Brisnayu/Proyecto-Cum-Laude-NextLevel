@@ -1,11 +1,11 @@
 .containerUsers {
-  background-image: url("/IA.jpg");
+  /* background-image: url("/IA.jpg"); */
   background-size: contain;
   background-position: center center;
   background-repeat: repeat;
   padding: 2rem 0;
   width: 100%;
-  /*height: 82vh; */
+  height: 82vh;
   display: flex;
   flex-direction: row;
   align-items: center;

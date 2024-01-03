@@ -23,8 +23,8 @@
   gap: 2rem;
 }
 
-.containerDesign > h2 {
-  /* border: 1px solid black; */
+.containerInformation > h2 {
+  /* border: 1px solid red; */
   padding: 0 0.5rem;
   position: absolute;
   top: -15px;
@@ -33,6 +33,7 @@
 
 .imageDesign {
   border: 2px solid black;
+  object-fit: cover;
 }
 
 .containerText {

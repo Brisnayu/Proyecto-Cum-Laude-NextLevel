@@ -112,6 +112,7 @@ const CardDesigner = ({ designerList }: Props) => {
                 alt={designer.name}
                 width={80}
                 height={80}
+                objectFit="cover"
                 priority
               />
               <div className={styles.containerText}>
